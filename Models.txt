@@ -1,0 +1,12 @@
+Bjór
+	Name
+	Brewery
+	Types: []
+	AlcoholPercentage: number
+
+Types
+	Name
+
+Brewery
+	Name
+	Country
