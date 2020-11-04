@@ -1,0 +1,36 @@
+@import './variables.scss';
+.navigation {
+    
+    background-color: $green;
+    .linkContainer {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        &:first-child {
+            margin-left: 30px;
+        }
+    
+        .navigationLink{
+            margin-right: 30px;
+            text-transform: uppercase;
+            color: $white;
+            text-decoration: none;
+            list-style: none;
+            a {
+                color: $white;
+                text-decoration: none;
+            }
+        }
+
+        .googleAuthenticationLink {
+            font-size: 29px;
+            color:red;
+        }
+    }
+
+    .logInOutLink {
+        margin-left: auto;
+        order: 2;
+    }
+
+}

@@ -10,6 +10,7 @@ import BeerList from './beers/BeerList';
 import BreweryList from './breweries/BreweryList';
 import BreweryNew from './breweries/BreweryNew';
 
+import './base.scss';
 
 class App extends Component {
     componentDidMount() {

@@ -1,12 +1,11 @@
 import React from 'react';
+import styles from './Landing.module.scss';
 
 const Landing = () => {
     return (
-        <div style={{ textAlign: 'center' }}>
+        <div className={styles.landing}>
             <h1>Bjórsmakk!</h1>
             Smökkum jólabjór
-
-            <h3>MUNA AÐ SKRÁ SIG INN!</h3>
         </div>
     );
 };

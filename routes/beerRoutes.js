@@ -6,7 +6,7 @@ const Brewery = mongoose.model('breweries');
 module.exports = app => {
 
   // GET BEERS
-  app.get('/api/beers', /*requireLogin,*/ async (req, res) => {
+  app.get('/api/beers', requireLogin, async (req, res) => {
     const beers = await Beer.find();
     console.log('BEERS FROM API', beers);
 
@@ -15,7 +15,7 @@ module.exports = app => {
 
 
   // POST BEER
-  app.post('/api/beers', /*requireLogin,*/ async (req, res) => {
+  app.post('/api/beers', requireLogin, async (req, res) => {
     const { name, percentage } = req.body;
 
     const beer = new Beer({
@@ -30,14 +30,14 @@ module.exports = app => {
   });
 
    // GET BREWERIES
-   app.get('/api/breweries', /*requireLogin,*/ async (req, res) => {
+   app.get('/api/breweries', requireLogin, async (req, res) => {
     const breweries = await Brewery.find();
     console.log('BREWERIES FROM API', breweries);
     res.send(breweries);
   });
 
   // POST BREWERY
-  app.post('/api/breweries', /*requireLogin,*/ async (req, res) => {
+  app.post('/api/breweries', requireLogin, async (req, res) => {
     const { name, country } = req.body;
 
     const brewery = new Brewery({

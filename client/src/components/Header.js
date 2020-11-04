@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styles from './Header.module.scss';
 
 class Header extends Component {
     renderLogInOut() {
@@ -9,13 +10,13 @@ class Header extends Component {
                 return '';
             case false:
                 return (
-                    <li>
+                    <li className={styles.navigationLink}>
                         <a href="/auth/google">Google Innskráning</a>
                     </li>
                 );
             default:
                 return (
-                    <li>
+                    <li className={styles.navigationLink}>
                         <a href="/api/logout">Útskrá</a>
                     </li>
                 );
@@ -23,27 +24,29 @@ class Header extends Component {
     }
     render() {
         return (
-            <nav>
-                <div className="nav-wrapper">
+            <nav className={styles.navigation}>
+                <div className={styles.linkContainer}>
                     <Link
                         to={this.props.auth ? '/' : '/'}
-                        className=""
+                        className={styles.navigationLink}
                     >
                         Jólabjórsmakk
                     </Link>
                     <Link
                         to={this.props.auth ? '/beers' : '/'}
-                        className=""
+                        className={styles.navigationLink}
                     >
                         Bjórar
                     </Link>
                     <Link
                         to={this.props.auth ? '/breweries' : '/'}
-                        className=""
+                        className={styles.navigationLink}
                     >
                         Brugghús
                     </Link>
-                    <ul className="right">{this.renderLogInOut()}</ul>
+                    <div className={styles.logInOutLink}>
+                        {this.renderLogInOut()}
+                    </div>
                 </div>
             </nav>
         );

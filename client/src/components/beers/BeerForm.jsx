@@ -14,7 +14,7 @@ class BeerForm extends Component {
             return (
                 <Field component={FormField} type="text" label={label} name={name} key={name} />
             )
-        })
+        });
     }
     render() {
 
@@ -22,12 +22,12 @@ class BeerForm extends Component {
             <div>
                 <form onSubmit={this.props.handleSubmit(this.props.onBeerSubmit)}>
                     {this.renderFields()}
-                    <Link to="/beers" className="red btn-flat white-text">
+                    <Link to="/beers" className="">
                         Hætta við
                     </Link>
-                    <button type="submit" className="teal btn-flat right white-text">
+                    <button type="submit" className="">
                         Áfram
-                        <i className="material-icons right">arrow_forward</i>
+                        <i className="material-icons">arrow_forward</i>
                     </button>
                 </form>
             </div>
