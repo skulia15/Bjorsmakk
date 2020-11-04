@@ -4,6 +4,7 @@ if (process.env.NODE_ENV === 'production') {
     // In production - return prod set of keys
     module.exports = require('./prod');
     console.log('GOOGLE CLIENT ID: ', process.env.GOOGLE_CLIENT_ID);
+    console.log('GOOGLE CLIENT ID: ', process.env.GOOGLE_SECRET);
 } else {
     // In development - return dev set of keys
     module.exports = require('./dev');
