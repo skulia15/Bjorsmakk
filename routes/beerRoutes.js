@@ -8,8 +8,6 @@ module.exports = app => {
   // GET BEERS
   app.get('/api/beers', requireLogin, async (req, res) => {
     const beers = await Beer.find();
-    console.log('BEERS FROM API', beers);
-
     res.send(beers);
   });
 
@@ -32,7 +30,6 @@ module.exports = app => {
    // GET BREWERIES
    app.get('/api/breweries', requireLogin, async (req, res) => {
     const breweries = await Brewery.find();
-    console.log('BREWERIES FROM API', breweries);
     res.send(breweries);
   });
 
