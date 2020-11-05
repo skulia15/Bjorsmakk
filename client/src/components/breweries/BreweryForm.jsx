@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import breweryFormFields from './breweryFormFields';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-
+import styles from '../Form.module.scss';
 
 class BreweryForm extends Component {
     renderFields() {
@@ -20,12 +20,12 @@ class BreweryForm extends Component {
 
         return (
             <div>
-                <form onSubmit={this.props.handleSubmit(this.props.onBrewerySubmit)}>
+                <form className={styles.standardForm} onSubmit={this.props.handleSubmit(this.props.onBrewerySubmit)}>
                     {this.renderFields()}
-                    <Link to="/breweries" className="red btn-flat white-text">
+                    <Link to="/breweries" className="">
                         Hætta við
                     </Link>
-                    <button type="submit" className="teal btn-flat right white-text">
+                    <button type="submit" className="">
                         Áfram
                         <i className="material-icons right">arrow_forward</i>
                     </button>

@@ -1,0 +1,28 @@
+.button {
+    color: white;
+    height: 40px;
+    width: 120px;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    transition: all .2s;
+    
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+.success {
+    background-color: #48D392;
+    &:hover {
+       background-color: #2ba069;
+    }
+}
+
+.cancel {
+    background-color: #ff605c;
+    &:hover {
+       background-color: #db312c;
+    }
+}

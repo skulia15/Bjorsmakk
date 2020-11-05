@@ -13,7 +13,7 @@ class BeerNew extends Component {
                 onCancel={() => this.setState({ showReview: false })}
             />;
         }
-        return <BeerForm onBeerSubmit={() => this.setState({ showReview: true })} />;
+        return <BeerForm className="formContainer" onBeerSubmit={() => this.setState({ showReview: true })} />;
     }
 
     render() {

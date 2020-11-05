@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
+import './GoogleButton.scss'
 
 class Header extends Component {
     renderLogInOut() {
@@ -10,9 +11,12 @@ class Header extends Component {
                 return '';
             case false:
                 return (
-                    <li className={styles.navigationLink}>
-                        <a href="/auth/google">Google Innskráning</a>
-                    </li>
+                        <div id="gSignInWrapper" onClick={(e) => {  e.preventDefault(); window.location.href='/auth/google'; }}>
+                            <div id="customBtn">
+                                <span className="icon"></span>
+                                <span className="buttonText">Sign in  with Google</span>
+                            </div>
+                        </div>
                 );
             default:
                 return (

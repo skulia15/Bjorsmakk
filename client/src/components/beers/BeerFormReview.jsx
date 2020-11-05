@@ -23,13 +23,13 @@ const BeerFormReview = ({ onCancel, formValues, submitBeer, history }) => {
             <h5>Please confirm your entries</h5>
             {reviewFields}
             <button
-                className="yellow darken-3 white-text btn-flat"
+                className=""
                 onClick={onCancel}>
                 Til baka
             </button>
             <button
                 onClick={() => submitBeer(formValues, history)}
-                className="green btn-flat right white-text"
+                className=""
             >
                 Staðfesta
                 <i className="material-icons right">done</i>

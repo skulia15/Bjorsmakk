@@ -1,0 +1,31 @@
+
+.formHeader {
+    margin: auto;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    font-size: 25px;
+    border-bottom: 2px solid rgba(0, 0, 0, .2);
+    width: 300px;
+    text-align: center;
+}
+.formContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    .standardForm {
+        padding-top: 30px;
+        margin: auto;
+        label {
+            display: block;
+        }
+    }
+    
+}
+
+.buttonContainer {
+    display: flex;
+    :not(:last-child) {
+        margin-right: 50px;
+    }
+}
+
