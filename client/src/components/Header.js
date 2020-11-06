@@ -49,6 +49,18 @@ class Header extends Component {
           >
             Brugghús
           </Link>
+          <Link
+            to={this.props.auth ? "/types" : "/"}
+            className={styles.navigationLink}
+          >
+            Bjórflokkar
+          </Link>
+          <Link
+            to={this.props.auth ? "/countries" : "/"}
+            className={styles.navigationLink}
+          >
+            Lönd
+          </Link>
         </React.Fragment>
       );
     }

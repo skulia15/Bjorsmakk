@@ -5,11 +5,12 @@ const passport = require('passport');
 const keys = require('./config/keys');
 const bodyParser = require('body-parser');
 
-require('./models/User');
-require('./models/Beer');
-require('./models/Brewery');
 require('./models/Type');
+require('./models/User');
+require('./models/Brewery');
+require('./models/Beer');
 require('./models/Rating');
+require('./models/Country');
 
 require('./services/passport');
 

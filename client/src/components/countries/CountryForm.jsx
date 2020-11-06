@@ -5,25 +5,19 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "../Button";
 import TextInput from "../inputs/TextInput";
-import SelectInput from "../inputs/SelectInput";
-import { fetchCountries } from "../../actions";
 
 import styles from "../Form.module.scss";
 
-class BreweryForm extends Component {
-  componentDidMount() {
-    this.props.fetchCountries();
-  }
-
+class CountryForm extends Component {
   render() {
     return (
       <div className={styles.formContainer}>
-        <div className={styles.formHeader}>Skrá Brugghús</div>
+        <div className={styles.formHeader}>Skrá Land</div>
 
         <form
-          name="breweryForm"
+          name="countryForm"
           className={styles.standardForm}
-          onSubmit={this.props.handleSubmit(this.props.onBrewerySubmit)}
+          onSubmit={this.props.handleSubmit(this.props.onCountrySubmit)}
           ref={(ref) => {
             this.form = ref;
           }}
@@ -31,16 +25,9 @@ class BreweryForm extends Component {
           <div className={styles.inputsContainer}>
             <TextInput
               placeholder=""
-              label="Brugghús"
+              label="Land"
               name="name"
             ></TextInput>
-            <SelectInput
-              label="Upprunaland"
-              name="country"
-              options={this.props.countries}
-              optionKey="name"
-              valueKey="_id"
-            ></SelectInput>
           </div>
 
           <div className={styles.buttonContainer}>
@@ -58,7 +45,7 @@ class BreweryForm extends Component {
               }}
             >
               <Button
-                buttonText="Skrá brugghús"
+                buttonText="Skrá Land"
                 iconName="arrow_forward"
                 type="success"
               ></Button>
@@ -70,13 +57,13 @@ class BreweryForm extends Component {
   }
 }
 
-function mapStateToProps({ auth, countries }) {
-  return { auth, countries };
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
-BreweryForm = connect(mapStateToProps, { fetchCountries })(BreweryForm);
+CountryForm = connect(mapStateToProps)(CountryForm);
 
 export default reduxForm({
-  form: "breweryForm",
+  form: "countryyForm",
   destroyOnUnmount: false,
-})(BreweryForm);
+})(CountryForm);

@@ -1,26 +1,16 @@
-import BreweryFormReview from './BreweryFormReview';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import BreweryForm from './BreweryForm';
 import { connect } from 'react-redux';
+import * as actions from "../../actions";
 
 class BreweryNew extends Component {
-    state = { showReview: false };
-
-    renderContent() {
-        if (this.state.showReview) {
-            return <BreweryFormReview
-                onCancel={() => this.setState({ showReview: false })}
-            />;
-        }
-        return <BreweryForm onBrewerySubmit={() => this.setState({ showReview: true })} />;
+    submit = values => {
+        this.props.submitBrewery(values, this.props.history)
     }
-
     render() {
         return (
-            <div>
-                {this.renderContent()}
-            </div>
+            <BreweryForm onBrewerySubmit={this.submit} />
         );
     }
 }
@@ -29,7 +19,7 @@ function mapStateToProps({ auth }) {
     return { auth };
 }
 
-BreweryNew = connect(mapStateToProps)(BreweryNew);
+BreweryNew = connect(mapStateToProps, actions)(BreweryNew);
 
 export default reduxForm({
     form: 'breweryForm'

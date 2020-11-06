@@ -1,17 +1,24 @@
 import React from "react";
 import props from "prop-types";
+import { Field } from "redux-form";
 
 import style from "./NumberInput.module.scss";
 
 class NumberInput extends React.Component {
-
   render() {
     return (
       <div className={`${style.form__group}`}>
-        <label htmlFor={props.placeholder} className={style.form__label}>
+        <label htmlFor={props.label} className={style.form__label}>
           {this.props.label}
         </label>
-        <input type="number" min="0" max="30" step="0.1" />
+        <Field
+          component="input"
+          name={this.props.name}
+          type="number"
+          min="0"
+          max="30"
+          step="0.1"
+        />
       </div>
     );
   }

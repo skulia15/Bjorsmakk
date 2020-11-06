@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchBeers } from "../../actions";
 import Button from "../Button";
 import style from "../ListView.module.scss";
+import beerStyle from "./BeerListItem.module.scss";
 
 class BeerList extends Component {
   componentDidMount() {
@@ -15,11 +16,10 @@ class BeerList extends Component {
     }
     return this.props.beers.reverse().map((beer) => {
       return (
-        <div className="" key={beer._id}>
-          <div className="">
-            <span className="">{beer.name}</span>
-            <p>{beer.percentage}%</p>
-          </div>
+        <div className={beerStyle.beerListItemContainer} key={beer._id}>
+            <span className={beerStyle.beerTitle}>{beer.name}</span>
+            <span>{beer.percentage}%</span>
+            <span>{beer.type?.typeName}%</span>
         </div>
       );
     });
@@ -27,17 +27,17 @@ class BeerList extends Component {
   render() {
     return (
       <div className={style.listView}>
-		  <div className={style.listViewContainer}>
-			<h1>Bjórlisti</h1>
-			<div className="beer-list__list">{this.renderBeers()}</div>
-			<Link to={this.props.auth ? "/beers/new" : "/"} className="btn">
-			<Button
-				buttonText="Bæta við"
-				iconName="arrow_forward"
-				type="success"
-			></Button>
-			</Link>
-		  </div>
+        <div className={style.listViewContainer}>
+          <h1>Bjórlisti</h1>
+          <div className={beerStyle.beerListContainer}>{this.renderBeers()}</div>
+          <Link to={this.props.auth ? "/beers/new" : "/"}>
+            <Button
+              buttonText="Skrá bjór"
+              iconName="arrow_forward"
+              type="success"
+            ></Button>
+          </Link>
+        </div>
       </div>
     );
   }

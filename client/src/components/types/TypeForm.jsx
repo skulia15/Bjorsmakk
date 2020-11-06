@@ -1,46 +1,34 @@
 // import validateEmails from '../../utils/validateEmails'
 import { reduxForm } from "redux-form";
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import Button from "../Button";
-import TextInput from "../inputs/TextInput";
-import SelectInput from "../inputs/SelectInput";
-import { fetchCountries } from "../../actions";
-
 import styles from "../Form.module.scss";
+import TextInput from "../inputs/TextInput";
+import Button from "../Button";
+import { compose } from "redux";
 
-class BreweryForm extends Component {
-  componentDidMount() {
-    this.props.fetchCountries();
+class TypeForm extends Component {
+  nextPath(path) {
+    this.props.history.push(path);
   }
 
   render() {
     return (
       <div className={styles.formContainer}>
-        <div className={styles.formHeader}>Skrá Brugghús</div>
+        <div className={styles.formHeader}>Skrá Bjórflokk</div>
 
         <form
-          name="breweryForm"
+          name="typeForm"
           className={styles.standardForm}
-          onSubmit={this.props.handleSubmit(this.props.onBrewerySubmit)}
+          onSubmit={this.props.handleSubmit(this.props.onTypeSubmit)}
           ref={(ref) => {
             this.form = ref;
           }}
         >
           <div className={styles.inputsContainer}>
-            <TextInput
-              placeholder=""
-              label="Brugghús"
-              name="name"
-            ></TextInput>
-            <SelectInput
-              label="Upprunaland"
-              name="country"
-              options={this.props.countries}
-              optionKey="name"
-              valueKey="_id"
-            ></SelectInput>
+            <TextInput placeholder="" label="Bjórflokkur" name="typeName"></TextInput>
           </div>
 
           <div className={styles.buttonContainer}>
@@ -58,7 +46,7 @@ class BreweryForm extends Component {
               }}
             >
               <Button
-                buttonText="Skrá brugghús"
+                buttonText="Skrá flokk"
                 iconName="arrow_forward"
                 type="success"
               ></Button>
@@ -70,13 +58,16 @@ class BreweryForm extends Component {
   }
 }
 
-function mapStateToProps({ auth, countries }) {
-  return { auth, countries };
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
-BreweryForm = connect(mapStateToProps, { fetchCountries })(BreweryForm);
+TypeForm = connect(mapStateToProps)(TypeForm);
 
-export default reduxForm({
-  form: "breweryForm",
-  destroyOnUnmount: false,
-})(BreweryForm);
+export default compose(
+  withRouter,
+  reduxForm({
+    form: "typeForm",
+    destroyOnUnmount: false,
+  })
+)(TypeForm);

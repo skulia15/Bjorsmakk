@@ -1,39 +1,30 @@
-import BeerFormReview from './BeerFormReview';
-import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
-import BeerForm from './BeerForm';
-import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
+import React, { Component } from "react";
+import { reduxForm } from "redux-form";
+import BeerForm from "./BeerForm";
+import { connect } from "react-redux";
+import * as actions from "../../actions";
 
 class BeerNew extends Component {
-    state = { showReview: false };
+  submit = (values) => {
+    this.props.submitBeer(values, this.props.history);
+  };
 
-    renderContent() {
-        if (this.state.showReview) {
-            return <BeerFormReview
-                onCancel={() => this.setState({ showReview: false })}
-            />;
-        }
-        return <BeerForm className="formContainer" onBeerSubmit={() => this.setState({ showReview: true })} />;
-    }
+  renderContent() {
+    return;
+  }
 
-    render() {
-        return (
-            <div>
-                {this.renderContent()}
-            </div>
-        );
-    }
+  render() {
+    return <BeerForm className="formContainer" onBeerSubmit={this.submit} />;
+  }
 }
 
 function mapStateToProps({ auth }) {
-    return { auth };
+  return { auth };
 }
 
-BeerNew = connect(mapStateToProps)(BeerNew);
+BeerNew = connect(mapStateToProps, actions)(withRouter(BeerNew));
 
 export default reduxForm({
-    form: 'beerForm'
+  form: "beerForm",
 })(BeerNew);
-
-
-

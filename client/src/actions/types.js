@@ -1,3 +1,6 @@
 export const FETCH_USER = 'fetch_user';
 export const FETCH_BEERS = 'fetch_beers';
+export const FETCH_TYPES = 'fetch_types';
 export const FETCH_BREWERIES = 'fetch_breweries';
+export const FETCH_COUNTRIES = 'fetch_countries';
+
