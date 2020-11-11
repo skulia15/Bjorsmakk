@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import styles from "../Form.module.scss";
 import TextInput from "../inputs/TextInput";
-import Button from "../Button";
+import Button from "../button/Button";
 import { compose } from "redux";
 
 class TypeForm extends Component {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Header from './Header';
-import Landing from './Landing';
+import Landing from './landing/Landing';
 
 import BeerNew from './beers/BeerNew';
 import BeerList from './beers/BeerList';
@@ -17,6 +17,11 @@ import BreweryNew from './breweries/BreweryNew';
 
 import CountryList from './countries/CountryList';
 import CountryNew from './countries/CountryNew';
+
+import UserList from './users/UserList';
+
+import EventList from './events/EventList';
+import EventNew from './events/EventNew';
 
 import './base.scss';
 
@@ -43,6 +48,11 @@ class App extends Component {
 
                         <Route exact path="/countries" component={CountryList} />
                         <Route path="/countries/new" component={CountryNew} />
+
+                        <Route exact path="/users" component={UserList} />
+
+                        <Route exact path="/events" component={EventList} />
+                        <Route exact path="/events/new" component={EventNew} />
                     </div>
                 </BrowserRouter>
             </div>

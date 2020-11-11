@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
-import "./GoogleButton.scss";
+import "../components/button/GoogleButton.scss";
 
 class Header extends Component {
   renderLogInOut() {
@@ -60,6 +60,19 @@ class Header extends Component {
             className={styles.navigationLink}
           >
             Lönd
+          </Link>
+          <Link
+            to={this.props.auth ? "/users" : "/"}
+            className={styles.navigationLink}
+          >
+            Notendur
+          </Link>
+
+          <Link
+            to={this.props.auth ? "/events" : "/"}
+            className={styles.navigationLink}
+          >
+            Viðburðir
           </Link>
         </React.Fragment>
       );

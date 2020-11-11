@@ -3,7 +3,8 @@ import { reduxForm } from "redux-form";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import Button from "../Button";
+import Button from "../button/Button";
+
 import TextInput from "../inputs/TextInput";
 
 import styles from "../Form.module.scss";
@@ -31,9 +32,9 @@ class CountryForm extends Component {
           </div>
 
           <div className={styles.buttonContainer}>
-            <Link to="/types">
+            <Link to="/countries">
               <Button
-                onClick={() => this.nextPath("/types")}
+                onClick={() => this.nextPath("/countries")}
                 buttonText="Hætta við"
                 type="cancel"
               ></Button>
@@ -64,6 +65,6 @@ function mapStateToProps({ auth }) {
 CountryForm = connect(mapStateToProps)(CountryForm);
 
 export default reduxForm({
-  form: "countryyForm",
+  form: "countryForm",
   destroyOnUnmount: false,
 })(CountryForm);

@@ -5,6 +5,8 @@ import beersReducer from './beersReducer';
 import breweriesReducer from './breweriesReducer';
 import countriesReducer from './countriesReducer';
 import typesReducer from './typesReducer';
+import usersReducer from './usersReducer';
+import eventsReducer from './eventsReducer';
 
 export default combineReducers({
     auth: authReducer,
@@ -12,5 +14,7 @@ export default combineReducers({
     beers: beersReducer,
     breweries: breweriesReducer,
     countries: countriesReducer,
-    types: typesReducer
+    types: typesReducer,
+    users: usersReducer,
+    events: eventsReducer
 });

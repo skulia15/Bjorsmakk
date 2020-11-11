@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBreweries } from "../../actions";
 import style from "../ListView.module.scss";
-import Button from "../Button";
+import Button from "../button/Button";
 
 class BreweryList extends Component {
   componentDidMount() {

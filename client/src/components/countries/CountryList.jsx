@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchCountries } from "../../actions";
 import style from "../ListView.module.scss";
-import Button from "../Button";
+import Button from "../button/Button";
+
 
 class CountryList extends Component {
   componentDidMount() {
     this.props.fetchCountries();
-    console.log(this.props);
   }
   renderCountries() {
     if (!this.props.countries) {
@@ -44,7 +44,6 @@ class CountryList extends Component {
 }
 
 function mapStateToProps({ auth, countries }) {
-  console.log('MAPPING STATE', countries)
   return { auth, countries };
 }
 

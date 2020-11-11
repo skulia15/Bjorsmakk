@@ -3,12 +3,13 @@ import props from "prop-types";
 import { Field } from "redux-form";
 
 import style from "./NumberInput.module.scss";
+import formStyle from "../Form.module.scss";
 
 class NumberInput extends React.Component {
   render() {
     return (
-      <div className={`${style.form__group}`}>
-        <label htmlFor={props.label} className={style.form__label}>
+      <div className={`${formStyle.form__group}`}>
+        <label htmlFor={props.label} className={formStyle.form__label}>
           {this.props.label}
         </label>
         <Field

@@ -1,31 +1,39 @@
-
 .formHeader {
-    margin: auto;
-    padding-top: 40px;
-    padding-bottom: 10px;
-    font-size: 25px;
-    border-bottom: 2px solid rgba(0, 0, 0, .2);
-    width: 300px;
-    text-align: center;
+  margin: auto;
+  padding-top: 40px;
+  padding-bottom: 10px;
+  font-size: 25px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
 }
 .formContainer {
-    display: flex;
-    flex-wrap: wrap;
-    flex-flow: column;
-    .standardForm {
-        padding-top: 30px;
-        margin: auto;
-        label {
-            display: block;
-        }
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: column;
+  .standardForm {
+    padding-top: 30px;
+    margin: auto;
+    label {
+      display: block;
     }
-    
+  }
 }
 
 .buttonContainer {
-    display: flex;
-    :not(:last-child) {
-        margin-right: 50px;
-    }
+  display: flex;
+  :not(:last-child) {
+    margin-right: 50px;
+  }
 }
 
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+  .form__label {
+    margin-bottom: 10px;
+  }
+}

@@ -11,6 +11,7 @@ require('./models/Brewery');
 require('./models/Beer');
 require('./models/Rating');
 require('./models/Country');
+require('./models/Event');
 
 require('./services/passport');
 
@@ -35,6 +36,7 @@ app.use(bodyParser.urlencoded({
 
 require('./routes/authRoutes')(app);
 require('./routes/beerRoutes')(app);
+require('./routes/eventRoutes')(app);
 
 
 if (process.env.NODE_ENV === 'production') {

@@ -7,7 +7,7 @@ import styles from "../Form.module.scss";
 import TextInput from "../inputs/TextInput";
 import NumberInput from "../inputs/NumberInput";
 import SelectInput from "../inputs/SelectInput";
-import Button from "../Button";
+import Button from "../button/Button";
 import { compose } from "redux";
 import { fetchTypes } from "../../actions";
 
@@ -37,7 +37,13 @@ class BeerForm extends Component {
               label="Prósenta % (dæmi: 4.5 )"
               name="percentage"
             ></NumberInput>
-            <SelectInput label="Bjórflokkur" name="type" options={this.props.types} optionKey="typeName" valueKey="_id"></SelectInput>
+            <SelectInput
+              label="Bjórflokkur"
+              name="type"
+              options={this.props.types}
+              optionKey="typeName"
+              valueKey="_id"
+            ></SelectInput>
           </div>
 
           <div className={styles.buttonContainer}>
@@ -69,8 +75,8 @@ class BeerForm extends Component {
 }
 
 function mapStateToProps({ auth, types }) {
-    return { auth, types };
-  }
+  return { auth, types };
+}
 
 BeerForm = connect(mapStateToProps, { fetchTypes })(BeerForm);
 
