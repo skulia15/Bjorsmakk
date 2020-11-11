@@ -5,21 +5,22 @@ import { fetchEvents } from "../../actions";
 import style from "../ListView.module.scss";
 import Button from "../button/Button";
 
-
 class EventList extends Component {
   componentDidMount() {
     this.props.fetchEvents();
   }
   renderEvents() {
     if (!this.props.events || !this.props.events.length) {
-      return (<div>Engir viðburðir skráðir!</div>);
+      return <div>Engir viðburðir skráðir!</div>;
     }
 
     return this.props.events.reverse().map((event) => {
       return (
-        <div className="" key={event._id}>
-          <span className="">{event.name}</span>
-        </div>
+          <Link to={this.props.auth ? `/events/${event._id}`  : "/"}>
+          <div className="" key={event._id}>
+            <span className="">{event.name}</span>
+          </div>
+        </Link>
       );
     });
   }
@@ -43,7 +44,7 @@ class EventList extends Component {
 }
 
 function mapStateToProps({ auth, events }) {
-  console.log('events', events);
+  console.log("events", events);
   return { auth, events };
 }
 

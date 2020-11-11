@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
-import "../components/button/GoogleButton.scss";
+import "../../components/button/GoogleButton.scss";
 
 class Header extends Component {
   renderLogInOut() {

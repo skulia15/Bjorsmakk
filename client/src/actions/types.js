@@ -5,4 +5,5 @@ export const FETCH_TYPES = 'fetch_types';
 export const FETCH_BREWERIES = 'fetch_breweries';
 export const FETCH_COUNTRIES = 'fetch_countries';
 export const FETCH_EVENTS = 'fetch_events';
+export const FETCH_SINGLE_EVENT = 'fetch_single_event';
 

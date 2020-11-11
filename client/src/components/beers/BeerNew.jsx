@@ -7,6 +7,7 @@ import * as actions from "../../actions";
 
 class BeerNew extends Component {
   submit = (values) => {
+    console.log(values)
     this.props.submitBeer(values, this.props.history);
   };
 

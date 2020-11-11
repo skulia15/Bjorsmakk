@@ -13,6 +13,7 @@ class NumberInput extends React.Component {
           {this.props.label}
         </label>
         <Field
+          className={style.numberInput}
           component="input"
           name={this.props.name}
           type="number"

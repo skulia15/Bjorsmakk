@@ -17,6 +17,8 @@ module.exports = (app) => {
   // POST BEER
   app.post("/api/beers", requireLogin, async (req, res) => {
     const { name, percentage, type } = req.body;
+    console.log('TYPE', type);
+    console.log(req.body);
 
     const beer = new Beer({
       name,

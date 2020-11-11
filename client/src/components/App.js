@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import Header from './Header';
+import Header from './header/Header';
 import Landing from './landing/Landing';
 
 import BeerNew from './beers/BeerNew';
@@ -22,6 +22,7 @@ import UserList from './users/UserList';
 
 import EventList from './events/EventList';
 import EventNew from './events/EventNew';
+import EventDetails from './events/EventDetails';
 
 import './base.scss';
 
@@ -53,6 +54,7 @@ class App extends Component {
 
                         <Route exact path="/events" component={EventList} />
                         <Route exact path="/events/new" component={EventNew} />
+                        <Route exact path="/events/:id" component={EventDetails} />
                     </div>
                 </BrowserRouter>
             </div>

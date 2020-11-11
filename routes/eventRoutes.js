@@ -10,6 +10,11 @@ module.exports = (app) => {
     res.json(events);
   });
 
+  app.get("/api/events/:id", requireLogin, async (req, res) => {
+    const events = await Event.find({_id:req.params.id});
+    res.json(events);
+  });
+
   app.post("/api/events", requireLogin, async (req, res) => {
     const { name, users, beers } = req.body;
 

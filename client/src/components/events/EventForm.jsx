@@ -22,14 +22,7 @@ class EventForm extends Component {
     this.props.fetchUsers();
     this.props.fetchBeers();
   }
-  onSelect(selectedList, selectedItem) {
-    console.log("selectedList", selectedList);
-    console.log("selectedItem", selectedItem);
-  }
 
-  onRemove(selectedList, removedItem) {
-    console.log("selectedList", selectedList);
-  }
   render() {
     return (
       <div className={styles.formContainer}>
@@ -58,8 +51,6 @@ class EventForm extends Component {
                     : this.state.options
                 } // Options to display in the dropdown
                 selectedValues={this.state.selectedUserValues} // Preselected value to persist in dropdown
-                onSelect={this.onSelect} // Function will trigger on select event
-                onRemove={this.onRemove} // Function will trigger on remove event
                 displayValue="name" // Property name to display in the dropdown options
               />
             </div>
@@ -77,8 +68,6 @@ class EventForm extends Component {
                     : this.state.options
                 } // Options to display in the dropdown
                 selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                onSelect={this.onSelect} // Function will trigger on select event
-                onRemove={this.onRemove} // Function will trigger on remove event
                 displayValue="name" // Property name to display in the dropdown options
               />
             </div>
