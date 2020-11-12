@@ -11,10 +11,10 @@ class BeerList extends Component {
     this.props.fetchBeers();
   }
   renderBeers() {
-    if (!this.props.beers) {
+    if (!this.props.beers || !this.props.beers.length) {
       return <div>Engir bjórar skráðir</div>;
     }
-    return this.props.beers.reverse().map((beer) => {
+    return this.props.beers.map((beer) => {
       return (
         <Link to={this.props.auth ? `/beers/${beer._id}` : "/"} className={beerStyle.beerListItemContainer} key={beer._id}>
             <span className={beerStyle.beerTitle}>{beer.name}</span>
