@@ -1,25 +1,26 @@
-import { reduxForm } from "redux-form";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
-import { Field } from "redux-form";
-
-
-import styles from "../Form.module.scss";
-import formStyle from "../Form.module.scss";
-
-import TextInput from "../inputs/TextInput";
-import NumberInput from "../inputs/NumberInput";
-import SelectInput from "../inputs/SelectInput";
-import Button from "../button/Button";
 import { compose } from "redux";
-import { fetchTypes, fetchBreweries } from "../../actions";
-import { Multiselect } from "multiselect-react-dropdown";
+import { reduxForm } from "redux-form";
 import { change as changeFieldValue } from 'redux-form'
 
+import { Multiselect } from "multiselect-react-dropdown";
+import NumberInput from "../inputs/NumberInput";
+import SelectInput from "../inputs/SelectInput";
+import TextInput from "../inputs/TextInput";
+import Button from "../button/Button";
+
+import { fetchTypes, fetchBreweries } from "../../actions";
+
+import formStyle from "../Form.module.scss";
+import styles from "../Form.module.scss";
+
+
 class BeerForm extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
   }
@@ -83,7 +84,6 @@ class BeerForm extends Component {
             {/* todo: clickhandler not working */}
             <Link to="/beers">
               <Button
-                onClick={() => this.nextPath("/beers")}
                 buttonText="Hætta við"
                 type="cancel"
               ></Button>

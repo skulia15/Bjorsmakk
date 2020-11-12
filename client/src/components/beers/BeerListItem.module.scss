@@ -1,6 +1,7 @@
 @import '../variables.scss';
 
 .beerListContainer {
+   
     .beerListItemContainer:last-child {
         border-bottom: 1px solid #eee;
         margin-bottom: 40px;
@@ -11,6 +12,7 @@
     }
 
     .beerListItemContainer {
+        display: block;
         border-bottom: 1px solid #eee;
         padding: 10px 0;
     

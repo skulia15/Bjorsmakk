@@ -8,6 +8,7 @@ import Landing from './landing/Landing';
 
 import BeerNew from './beers/BeerNew';
 import BeerList from './beers/BeerList';
+import BeerDetails from './beers/BeerDetails';
 
 import TypeNew from './types/TypeNew';
 import TypeList from './types/TypeList';
@@ -39,7 +40,9 @@ class App extends Component {
                         <Route exact path="/" component={Landing} />
 
                         <Route exact path="/beers" component={BeerList} />
+                        <Route exact path="/beers/:id" component={BeerDetails} />
                         <Route path="/beers/new" component={BeerNew} />
+
 
                         <Route exact path="/types" component={TypeList} />
                         <Route path="/types/new" component={TypeNew} />
@@ -53,8 +56,8 @@ class App extends Component {
                         <Route exact path="/users" component={UserList} />
 
                         <Route exact path="/events" component={EventList} />
-                        <Route exact path="/events/new" component={EventNew} />
                         <Route exact path="/events/:id" component={EventDetails} />
+                        <Route exact path="/events/new" component={EventNew} />
                     </div>
                 </BrowserRouter>
             </div>

@@ -3,6 +3,7 @@ import {
   FETCH_USER,
   FETCH_USERS,
   FETCH_BEERS,
+  FETCH_SINGLE_BEER,
   FETCH_BREWERIES,
   FETCH_TYPES,
   FETCH_COUNTRIES,
@@ -33,6 +34,11 @@ export const submitBeer = (values, history) => async (dispatch) => {
 export const fetchBeers = () => async (dispatch) => {
   const res = await axios.get("/api/beers");
   dispatch({ type: FETCH_BEERS, payload: res.data });
+};
+
+export const fetchSingleBeer = (id) => async (dispatch) => {
+  const res = await axios.get(`/api/beers/${id}`);
+  dispatch({ type: FETCH_SINGLE_BEER, payload: res.data });
 };
 
 /* Types */

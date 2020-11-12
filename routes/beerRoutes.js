@@ -14,16 +14,26 @@ module.exports = (app) => {
     res.json(beers);
   });
 
+  // GET SINGLE BEER
+  app.get("/api/beers/:id", requireLogin, async (req, res) => {
+    const beer = await Beer.findOne({ _id: req.params.id })
+      .populate("type")
+      .populate({
+        path: "brewery",
+        populate: "country",
+      });
+    res.json(beer);
+  });
+
   // POST BEER
   app.post("/api/beers", requireLogin, async (req, res) => {
-    const { name, percentage, type } = req.body;
-    console.log('TYPE', type);
-    console.log(req.body);
+    const { name, percentage, type, brewery } = req.body;
 
     const beer = new Beer({
       name,
       percentage,
       type,
+      brewery,
       createdBy: req.user.id,
       createdDate: Date.now(),
     });

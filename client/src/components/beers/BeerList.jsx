@@ -16,11 +16,11 @@ class BeerList extends Component {
     }
     return this.props.beers.reverse().map((beer) => {
       return (
-        <div className={beerStyle.beerListItemContainer} key={beer._id}>
+        <Link to={this.props.auth ? `/beers/${beer._id}` : "/"} className={beerStyle.beerListItemContainer} key={beer._id}>
             <span className={beerStyle.beerTitle}>{beer.name}</span>
             <span>{beer.percentage}%</span>
             <span>{beer.type?.typeName}%</span>
-        </div>
+        </Link>
       );
     });
   }
@@ -44,6 +44,7 @@ class BeerList extends Component {
 }
 
 function mapStateToProps({ auth, beers }) {
+  console.log(beers);
   return { auth, beers };
 }
 

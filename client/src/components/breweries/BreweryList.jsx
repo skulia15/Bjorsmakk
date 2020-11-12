@@ -18,7 +18,7 @@ class BreweryList extends Component {
 			<div className="" key={brewery._id}>
 				<span className="">{brewery.name}</span>
          - 
-				<span className="">{brewery.country}</span>
+				<span className="">{brewery.country?.name}</span>
 			</div>
 		  );
     });
