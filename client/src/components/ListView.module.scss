@@ -2,5 +2,22 @@
   display: flex;
   .listViewContainer {
     margin: auto;
+    width: 50%;
+  }
+
+  .listContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: auto;
+  }
+  .listViewHeading {
+    display: flex;
+    position: relative;
+  }
+  .buttonContainer {
+    position: absolute;
+    right: 0;
+    margin-top: 20px;
   }
 }

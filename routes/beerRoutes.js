@@ -10,7 +10,7 @@ module.exports = (app) => {
 
   // GET BEERS
   app.get("/api/beers", requireLogin, async (req, res) => {
-    const beers = await Beer.find().populate("type");
+    const beers = await Beer.find().populate("type").populate("brewery");
     res.json(beers);
   });
 

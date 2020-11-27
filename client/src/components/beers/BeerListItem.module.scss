@@ -1,25 +1,17 @@
-@import '../variables.scss';
+@import "../variables.scss";
 
 .beerListContainer {
-   
-    .beerListItemContainer:last-child {
-        border-bottom: 1px solid #eee;
-        margin-bottom: 40px;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
 
-    .beerListItemContainer:first-child {
-        border-top: 1px solid #eee;
+  .beerListItemContainer {
+    display: block;
+    padding: 10px 0;
+    .beerTitle {
+      font-size: 18px;
+      color: $red;
     }
-
-    .beerListItemContainer {
-        display: block;
-        border-bottom: 1px solid #eee;
-        padding: 10px 0;
-    
-        .beerTitle {
-            font-size: 18px;
-            color: $red;
-        }
-    
-    }
+  }
 }

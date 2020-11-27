@@ -1,0 +1,61 @@
+@import '../variables.scss';
+
+.card {
+  // background-color: red;
+  height: 110px;
+  width: 300px;
+  box-shadow: 8px 1rem 0.5rem rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  position: relative;
+  background-color: white;
+
+  .cardHeading {
+    display: block;
+    height: 40px;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 50px;
+    border-radius: 15px 15px 0 0;
+    color: white;
+    background-color: $red;
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .cardSubHeading {
+    display: block;
+    width: 100%;
+    color: $default-black;
+    font-size: 16px;
+    padding-left: 10px;
+
+  }
+  .cardTopRight {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: dimgray;
+    height: 40px;
+    width: 40px;
+    background-color: $green;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+  }
+  .cardBottomText {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 10px;
+    color: dimgray;
+    padding-left: 10px;
+
+  }
+}

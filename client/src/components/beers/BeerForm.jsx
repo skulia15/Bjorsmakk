@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { reduxForm } from "redux-form";
-import { change as changeFieldValue } from 'redux-form'
+import { change as changeFieldValue } from "redux-form";
 
 import { Multiselect } from "multiselect-react-dropdown";
 import NumberInput from "../inputs/NumberInput";
@@ -17,7 +17,6 @@ import { fetchTypes, fetchBreweries } from "../../actions";
 
 import formStyle from "../Form.module.scss";
 import styles from "../Form.module.scss";
-
 
 class BeerForm extends Component {
   constructor() {
@@ -36,9 +35,8 @@ class BeerForm extends Component {
   }
 
   handleMultiselectChange(selected) {
-    if (changeFieldValue){
-      this.props.dispatch(changeFieldValue('beerForm', 'type', selected ));
-      console.log(this.props)
+    if (changeFieldValue) {
+      this.props.dispatch(changeFieldValue("beerForm", "type", selected));
     }
   }
   render() {
@@ -61,15 +59,13 @@ class BeerForm extends Component {
               name="percentage"
             ></NumberInput>
             <div className={`${formStyle.form__group}`}>
-              <label className={formStyle.form__label}>
-                Bjórflokkur
-              </label>
+              <label className={formStyle.form__label}>Bjórflokkur</label>
               <Multiselect
                 options={this.props.types} // Options to display in the dropdown
                 selectedValues={this.state.selectedTypesValues} // Preselected value to persist in dropdown
                 displayValue="typeName" // Property name to display in the dropdown options
                 onSelect={this.handleMultiselectChange}
-                />
+              />
             </div>
             <SelectInput
               label="Brugghús"
@@ -83,10 +79,7 @@ class BeerForm extends Component {
           <div className={styles.buttonContainer}>
             {/* todo: clickhandler not working */}
             <Link to="/beers">
-              <Button
-                buttonText="Hætta við"
-                type="cancel"
-              ></Button>
+              <Button buttonText="Hætta við" type="cancel"></Button>
             </Link>
 
             <a
@@ -108,7 +101,6 @@ class BeerForm extends Component {
 }
 
 function mapStateToProps({ auth, types, breweries }) {
-
   return { auth, types, breweries };
 }
 
@@ -119,6 +111,6 @@ export default compose(
   reduxForm({
     form: "beerForm",
     destroyOnUnmount: false,
-    enableReinitialize: true
+    enableReinitialize: true,
   })
 )(BeerForm);

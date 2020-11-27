@@ -16,8 +16,8 @@ class EventList extends Component {
 
     return this.props.events.reverse().map((event) => {
       return (
-          <Link to={this.props.auth ? `/events/${event._id}`  : "/"}>
-          <div className="" key={event._id}>
+        <Link to={this.props.auth ? `/events/${event._id}` : "/"} key={event._id}>
+          <div key={event._id}>
             <span className="">{event.name}</span>
           </div>
         </Link>

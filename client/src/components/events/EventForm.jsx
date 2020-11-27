@@ -11,8 +11,14 @@ import styles from "../Form.module.scss";
 import { fetchUsers, fetchBeers } from "../../actions";
 import { Multiselect } from "multiselect-react-dropdown";
 import formStyle from "../Form.module.scss";
+import { change as changeFieldValue } from "redux-form";
 
 class EventForm extends Component {
+  constructor() {
+    super();
+    this.handleBeerSelectChange = this.handleBeerSelectChange.bind(this);
+    this.handleUserSelectChange = this.handleUserSelectChange.bind(this);
+  }
   state = {
     selectedUserValues: [],
     selectedBeerValues: [],
@@ -21,6 +27,18 @@ class EventForm extends Component {
   componentWillMount() {
     this.props.fetchUsers();
     this.props.fetchBeers();
+  }
+
+  handleBeerSelectChange(selected) {
+    if (changeFieldValue) {
+      this.props.dispatch(changeFieldValue("eventForm", "beer", selected));
+    }
+  }
+
+  handleUserSelectChange(selected) {
+    if (changeFieldValue) {
+      this.props.dispatch(changeFieldValue("eventForm", "user", selected));
+    }
   }
 
   render() {
@@ -52,6 +70,7 @@ class EventForm extends Component {
                 } // Options to display in the dropdown
                 selectedValues={this.state.selectedUserValues} // Preselected value to persist in dropdown
                 displayValue="name" // Property name to display in the dropdown options
+                onSelect={this.handleUserSelectChange}
               />
             </div>
 
@@ -60,7 +79,7 @@ class EventForm extends Component {
 
               <Multiselect
                 options={
-                  this.props.beers
+                  this.props.beers.length
                     ? this.props.beers.map((beer) => ({
                         name: beer.name,
                         id: beer._id,
@@ -69,6 +88,7 @@ class EventForm extends Component {
                 } // Options to display in the dropdown
                 selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
                 displayValue="name" // Property name to display in the dropdown options
+                onSelect={this.handleBeerSelectChange}
               />
             </div>
           </div>
@@ -85,6 +105,7 @@ class EventForm extends Component {
             <a
               onClick={() => {
                 this.form.dispatchEvent(new Event("submit"));
+                // console.log(this.state);
               }}
             >
               <Button
