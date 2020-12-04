@@ -1,51 +1,53 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../actions";
 import style from "../ListView.module.scss";
 import Button from "../button/Button";
 
-class EventList extends Component {
-  componentDidMount() {
-    this.props.fetchEvents();
-  }
-  renderEvents() {
-    if (!this.props.events || !this.props.events.length) {
+export const EventList = (props) => {
+  const dispatch = useDispatch();
+
+  const events = useSelector((state) => state.events);
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(fetchEvents());
+  }, [dispatch]);
+
+  const Events = () => {
+    if (!events || !events.length) {
       return <div>Engir viðburðir skráðir!</div>;
     }
 
-    return this.props.events.reverse().map((event) => {
+    return events.reverse().map((event) => {
       return (
-        <Link to={this.props.auth ? `/events/${event._id}` : "/"} key={event._id}>
+        <Link
+          to={auth ? `/events/${event._id}` : "/"}
+          key={event._id}
+        >
           <div key={event._id}>
             <span className="">{event.name}</span>
           </div>
         </Link>
       );
     });
-  }
-  render() {
-    return (
-      <div className={style.listView}>
-        <div className={style.listViewContainer}>
-          <h1>Skráðir viðburðir</h1>
-          <div className="">{this.renderEvents()}</div>
-          <Link to={this.props.auth ? "/events/new" : "/"}>
-            <Button
-              buttonText="Skrá Viðburð"
-              iconName="arrow_forward"
-              type="success"
-            ></Button>
-          </Link>
-        </div>
+  };
+
+  return (
+    <div className={style.listView}>
+      <div className={style.listViewContainer}>
+        <h1>Skráðir viðburðir</h1>
+        <Events />
+        <Link to={auth ? "/events/new" : "/"}>
+          <Button
+            buttonText="Skrá Viðburð"
+            iconName="arrow_forward"
+            type="success"
+          ></Button>
+        </Link>
       </div>
-    );
-  }
-}
-
-function mapStateToProps({ auth, events }) {
-  console.log("events", events);
-  return { auth, events };
-}
-
-export default connect(mapStateToProps, { fetchEvents })(EventList);
+    </div>
+  );
+};

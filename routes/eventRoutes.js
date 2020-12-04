@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const Event = mongoose.model("events");
 
 module.exports = (app) => {
-
   /* Events */
   app.get("/api/events", requireLogin, async (req, res) => {
     const events = await Event.find();
@@ -13,7 +12,10 @@ module.exports = (app) => {
   // GET SINGLE EVENT
   app.get("/api/events/:id", requireLogin, async (req, res) => {
     const events = await Event.findOne({ _id: req.params.id })
-      .populate("beers")
+      .populate({
+        path: "beers",
+        populate: ["brewery", "type"],
+      });
     res.json(events);
   });
 
@@ -21,13 +23,13 @@ module.exports = (app) => {
     const { name, user, beer } = req.body;
 
     const userIds = user.map((singleUser) => {
-      return singleUser.id
+      return singleUser.id;
     });
 
     const beerIds = beer.map((singleBeer) => {
-      return singleBeer.id
+      return singleBeer.id;
     });
-    
+
     const event = new Event({
       name,
       users: userIds,

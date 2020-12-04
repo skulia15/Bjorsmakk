@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchUsers } from "../../actions";
-import style from "../ListView.module.scss";
+import style from "./UserList.module.scss";
+import listStyle from "../ListView.module.scss";
 
 class UserList extends Component {
   componentDidMount() {
@@ -13,9 +14,9 @@ class UserList extends Component {
     }
     return this.props.users.reverse().map((user) => {
 		return (
-			<div className="" key={user._id}>
-				<div className="">{user.name}</div>
-				<div className="">{user.email}</div>
+			<div className={style.userItem} key={user._id}>
+				<div className={style.userItemName}>{user.name}</div>
+				<div className="">Netfang: {user.email}</div>
         {/* <img src={user.image} alt=""/> */}
 			</div>
 		  );
@@ -23,8 +24,8 @@ class UserList extends Component {
   }
   render() {
     return (
-      <div className={style.listView}>
-        <div className={style.listViewContainer}>
+      <div className={listStyle.listView}>
+        <div className={listStyle.listViewContainer}>
           <h1>Skráðir notendur</h1>
           <div className="">
             {this.renderUsers()}

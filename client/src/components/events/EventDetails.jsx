@@ -1,64 +1,105 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-// import { Link } from "react-router-dom";
-import { fetchSingleEvent } from "../../actions";
-// import style from "../ListView.module.scss";
-// import Button from "../button/Button";
-import { Link } from "react-router-dom";
-import cardStyle from "../card/Card.module.scss";
-import beerStyle from "../beers/BeerListItem.module.scss";
-import style from "../ListView.module.scss";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-class EventDetails extends Component {
-  componentDidMount() {
-    this.props.fetchSingleEvent();
-  }
-  renderBeers() {
-    if (!this.props.events?.beers || !this.props.events?.beers.length) {
-      return <div>Engir bjórar skráðir</div>;
+import { fetchSingleEvent } from "../../actions";
+import style from "../DetailView.module.scss";
+import beerStyle from "../beers/BeerListItem.module.scss";
+import cardStyle from "../card/Card.module.scss";
+
+
+export const EventDetails = (props) => {
+  const dispatch = useDispatch();
+
+ 
+  useEffect(() => {
+    dispatch(fetchSingleEvent(props.match.params.id));
+  }, [dispatch, props.match.params.id]);
+
+  const event = useSelector((state) => state.events);
+
+  const EventEmpty = () => {
+    return (
+      <div>
+        <h1>Sækir gögn...</h1>
+      </div>
+    );
+  };
+
+  const Event = () => {
+    return (
+      <div>
+        <h1>
+          {event.name}
+        </h1>
+      </div>
+    );
+  };
+
+  // TODO: reuse - copy of beerList
+  const BeerTypes = ({ beerTypes }) => {
+    if (beerTypes && beerTypes.length) {
+      return beerTypes.map((type, i) => {
+        if (i === 0) {
+          return <span key={type._id}>{type.typeName}</span>;
+        } else {
+          return <span key={type._id}> | {type.typeName}</span>;
+        }
+      });
+    } else {
+      return <span>Enginn flokkur</span>;
     }
-    return this.props.beers.map((beer) => {
-      return (
-        <Link
-          to={this.props.auth ? `/beers/${beer._id}` : "/"}
-          className={beerStyle.beerListItemContainer}
-          key={beer._id}
-        >
-          <div className={cardStyle.card}>
+  };
+
+  const BeersInEvent = () => {
+    if(event.beers && event.beers.length){
+      return event.beers.map((beer) => {
+        return (
+          <div className={cardStyle.card} key={beer._id}>
             <span className={cardStyle.cardHeading}>{beer.name}</span>
             <span className={cardStyle.cardTopRight}>{beer.percentage}%</span>
-            <span className={cardStyle.cardSubHeading}>
-              {beer.brewery.name}
-            </span>
+            <span className={cardStyle.cardSubHeading}>{beer.brewery.name}</span>
             <div className={cardStyle.cardBottomText}>
-              {this.renderBeerTypes(beer)}
+              <BeerTypes beerTypes={beer.type} />
             </div>
           </div>
-        </Link>
-      );
-    });
-  }
-  render() {
+        );
+      });
+    }
+    else {
+      return(
+        <span>Enginn bjór skráður</span>
+      )
+    }
+  };
+
+
+  if (!event || event.length === 0) {
     return (
-      <div className={style.listView}>
-        <div className={style.listViewContainer}>
-          <div className={style.listViewHeading}>
-            <h1>EVENT TITLE HERE</h1>
-          </div>
-
-          <div className={beerStyle.beerListContainer}>
-            {this.renderBeers()}
-          </div>
-
+      <div className={style.detailView}>
+        <EventEmpty />
+      </div>
+    );
+  } else {
+    return (
+      <div className={style.detailView}>
+        <Event />
+        <div className={beerStyle.beerListDetailContainer}>
+          <BeersInEvent />
         </div>
       </div>
     );
   }
-}
+  // return (
+  //   <div className={style.listView}>
+  //     <div className={style.listViewContainer}>
+  //       <div className={style.listViewHeading}>
+  //         <h1>EVENT TITLE HERE</h1>
+  //       </div>
 
-function mapStateToProps({ auth, events }) {
-  console.log("events", events);
-  return { auth, events };
-}
-
-export default connect(mapStateToProps, { fetchSingleEvent })(EventDetails);
+  //       {/* <div className={beerStyle.beerListContainer}> */}
+  //         {/* <Beers /> */}
+  //       {/* </div> */}
+  //     </div>
+  //   </div>
+  // );
+};

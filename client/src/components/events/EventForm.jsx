@@ -103,9 +103,9 @@ class EventForm extends Component {
             </Link>
 
             <a
+              href="/events"
               onClick={() => {
                 this.form.dispatchEvent(new Event("submit"));
-                // console.log(this.state);
               }}
             >
               <Button

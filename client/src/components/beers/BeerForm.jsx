@@ -41,7 +41,7 @@ class BeerForm extends Component {
   }
   render() {
     return (
-      <div className={styles.formContainer}>
+      <div className={`${styles.formContainer} ${styles.formContainer__centered}`}>
         <div className={styles.formHeader}>Skrá Bjór</div>
 
         <form
@@ -83,6 +83,7 @@ class BeerForm extends Component {
             </Link>
 
             <a
+              href="/beers"
               onClick={() => {
                 this.form.dispatchEvent(new Event("submit"));
               }}

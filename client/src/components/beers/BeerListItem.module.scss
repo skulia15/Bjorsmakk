@@ -3,15 +3,20 @@
 .beerListContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  // justify-content: space-around;
   margin: auto;
+}
 
-  .beerListItemContainer {
-    display: block;
-    padding: 10px 0;
-    .beerTitle {
-      font-size: 18px;
-      color: $red;
-    }
+.beerListItemContainer {
+  display: block;
+  .beerTitle {
+    font-size: 18px;
+    color: $red;
   }
+}
+
+.beerListDetailContainer {
+  display: flex;
+  flex-wrap: wrap;
+
 }

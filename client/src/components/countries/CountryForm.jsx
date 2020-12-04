@@ -12,7 +12,7 @@ import styles from "../Form.module.scss";
 class CountryForm extends Component {
   render() {
     return (
-      <div className={styles.formContainer}>
+      <div className={`${styles.formContainer} ${styles.formContainer__centered}`}>
         <div className={styles.formHeader}>Skrá Land</div>
 
         <form
@@ -41,6 +41,7 @@ class CountryForm extends Component {
             </Link>
 
             <a
+              href="/countries"
               onClick={() => {
                 this.form.dispatchEvent(new Event("submit"));
               }}

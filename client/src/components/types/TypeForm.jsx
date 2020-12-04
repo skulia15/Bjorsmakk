@@ -41,6 +41,7 @@ class TypeForm extends Component {
             </Link>
 
             <a
+              href="/types"
               onClick={() => {
                 this.form.dispatchEvent(new Event("submit"));
               }}

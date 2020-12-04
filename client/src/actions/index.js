@@ -5,6 +5,8 @@ import {
   FETCH_BEERS,
   FETCH_SINGLE_BEER,
   FETCH_BREWERIES,
+  FETCH_SINGLE_BREWERY,
+  FETCH_BEERS_FOR_BREWERY,
   FETCH_TYPES,
   FETCH_COUNTRIES,
   FETCH_EVENTS,
@@ -41,6 +43,11 @@ export const fetchSingleBeer = (id) => async (dispatch) => {
   dispatch({ type: FETCH_SINGLE_BEER, payload: res.data });
 };
 
+export const fetchBeersForBrewery = (breweryId) => async (dispatch) => {
+  const res = await axios.get(`/api/breweries/${breweryId}/beers`);
+  dispatch({ type: FETCH_BEERS_FOR_BREWERY, payload: res.data });
+};
+
 /* Types */
 export const fetchTypes = () => async (dispatch) => {
   const res = await axios.get("/api/types");
@@ -61,12 +68,18 @@ export const fetchBreweries = () => async (dispatch) => {
   dispatch({ type: FETCH_BREWERIES, payload: res.data });
 };
 
+export const fetchSingleBrewery = (id) => async (dispatch) => {
+  const res = await axios.get(`/api/breweries/${id}`);
+  dispatch({ type: FETCH_SINGLE_BREWERY, payload: res.data });
+};
+
 export const submitBrewery = (values, history) => async (dispatch) => {
   const res = await axios.post("/api/breweries", values);
 
   history.push("/breweries");
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
 
 /* Countries */
 export const fetchCountries = () => async (dispatch) => {
@@ -75,7 +88,7 @@ export const fetchCountries = () => async (dispatch) => {
 };
 
 export const submitCountry = (values, history) => async (dispatch) => {
-  const res = await axios.post("/api/countries", values);
+  const res = await axios.post("/api/countries", values)
   history.push("/countries");
   dispatch({ type: FETCH_USER, payload: res.data });
 };
@@ -87,7 +100,7 @@ export const fetchEvents = () => async (dispatch) => {
 };
 
 export const fetchSingleEvent = (id) => async (dispatch) => {
-  const res = await axios.get(`/api/event/${id}`);
+  const res = await axios.get(`/api/events/${id}`);
   dispatch({ type: FETCH_SINGLE_EVENT, payload: res.data });
 };
 

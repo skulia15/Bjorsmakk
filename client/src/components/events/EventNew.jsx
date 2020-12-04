@@ -6,7 +6,6 @@ import * as actions from "../../actions";
 
 class EventNew extends Component {
   submit = (values) => {
-    console.log("VALUES", values);
     this.props.submitEvent(values, this.props.history);
   };
   render() {

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const eventSchema = new Schema({
-  name: String,
+  name: {type: String, required: [true, 'Event requires a name']},
   users: [{ type: Schema.ObjectId, ref: "User" }],
   beers: [{ type: Schema.ObjectId, ref: "beers"}],
 

@@ -1,53 +1,63 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBreweries } from "../../actions";
 import style from "../ListView.module.scss";
 import Button from "../button/Button";
 import cardStyle from "../card/Card.module.scss";
 
-class BreweryList extends Component {
-  componentDidMount() {
-    this.props.fetchBreweries();
-  }
-  renderBreweries() {
-    if (!this.props.breweries) {
-      return <div>Engin brugghús skráð</div>;
+export const BreweryList = (props) => {
+  const breweries = useSelector((state) => state.breweries);
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBreweries());
+  }, [dispatch]);
+
+  const Breweries = () => {
+    if (!breweries || !breweries.length) {
+      return <h1>Hleður brugghúsum...</h1>;
     }
-    return this.props.breweries.reverse().map((brewery) => {
+
+    return breweries.sort((a, b) => (a.name > b.name) ? 1 : -1).map((brewery) => {
       return (
-        <div className={cardStyle.card} key={brewery._id}>
-          <span className={cardStyle.cardHeading}>{brewery.name}</span>
-          <span className={cardStyle.cardSubHeading}>
-            {brewery.country?.name}
-          </span>
-        </div>
+        <Link
+          to={auth ? `/breweries/${brewery._id}` : "/"}
+          className={style.beerListItemContainer}
+          key={brewery._id}
+        >
+          <div className={cardStyle.card} key={brewery._id}>
+            <span className={cardStyle.cardHeading}>{brewery.name}</span>
+            <span className={cardStyle.cardSubHeading}>
+              {brewery.country?.name}
+            </span>
+          </div>
+        </Link>
       );
     });
-  }
-  render() {
-    return (
-      <div className={style.listView}>
-        <div className={style.listViewContainer}>
-          <div className={style.listViewHeading}>
-            <h1>Brugghús</h1>
-            <Link to={this.props.auth ? "/breweries/new" : "/"} className={style.buttonContainer}>
+  };
+
+  return (
+    <div className={style.listView}>
+      <div className={style.listViewContainer}>
+        <div className={style.listViewHeading}>
+          <h1>Brugghús</h1>
+          <Link
+            to={auth ? "/breweries/new" : "/"}
+            className={style.buttonContainer}
+          >
             <Button
               buttonText="Skrá Brugghús"
               iconName="arrow_forward"
               type="success"
             ></Button>
-            </Link>
-          </div>
-          <div className={style.listContainer}>{this.renderBreweries()}</div>
+          </Link>
+        </div>
+        <div className={style.listContainer}>
+          <Breweries />
         </div>
       </div>
-    );
-  }
-}
-
-function mapStateToProps({ auth, breweries }) {
-  return { auth, breweries };
-}
-
-export default connect(mapStateToProps, { fetchBreweries })(BreweryList);
+    </div>
+  );
+};

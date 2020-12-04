@@ -1,48 +1,46 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchTypes } from "../../actions";
 import Button from "../button/Button";
 import style from "../ListView.module.scss";
-// import beerStyle from "./BeerListItem.module.scss";
 
-class TypeList extends Component {
-  componentDidMount() {
-    this.props.fetchTypes();
-  }
-  renderTypes() {
-    if (!this.props.types) {
+export const TypeList = (props) => {
+  const dispatch = useDispatch();
+  const types = useSelector((state) => state.types);
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(fetchTypes());
+  }, [dispatch]);
+
+  function renderTypes() {
+    if (!types) {
       return <div>Engir bjórflokkar skráðir</div>;
     }
-    return this.props.types.reverse().map((beerType) => {
+
+    return types.reverse().map((beerType) => {
       return (
-        <div className="" key={beerType._id}>
-            <span className="">{beerType.typeName}</span>
+        <div className={style.singleValueListItem} key={beerType._id}>
+          <span>{beerType.typeName}</span>
         </div>
       );
     });
   }
-  render() {
-    return (
-      <div className={style.listView}>
-        <div className={style.listViewContainer}>
-          <h1>Bjórflokkar</h1>
-          <div className="">{this.renderTypes()}</div>
-          <Link to={this.props.auth ? "/types/new" : "/"} className="btn">
-            <Button
-              buttonText="Skrá Bjórflokk"
-              iconName="arrow_forward"
-              type="success"
-            ></Button>
-          </Link>
-        </div>
+
+  return (
+    <div className={style.listViewContainer}>
+      <div className={style.listViewHeading}>
+        <h1>Bjórflokkar</h1>
+        <Link to={auth ? "/types/new" : "/"} className={style.buttonContainer}>
+          <Button
+            buttonText="Skrá Bjórflokk"
+            iconName="arrow_forward"
+            type="success"
+          ></Button>
+        </Link>
       </div>
-    );
-  }
-}
-
-function mapStateToProps({ auth, types }) {
-  return { auth, types };
-}
-
-export default connect(mapStateToProps, { fetchTypes })(TypeList);
+      <div className={style.singleValueListContainer}>{renderTypes()}</div>
+    </div>
+  );
+};

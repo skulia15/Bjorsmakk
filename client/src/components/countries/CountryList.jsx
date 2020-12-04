@@ -1,36 +1,37 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchCountries } from "../../actions";
 import style from "../ListView.module.scss";
 import Button from "../button/Button";
 
+export const CountryList = (props) => {
+  const dispatch = useDispatch();
+  const countries = useSelector((state) => state.countries);
+  const auth = useSelector((state) => state.auth);
 
-class CountryList extends Component {
-  componentDidMount() {
-    this.props.fetchCountries();
-  }
-  renderCountries() {
-    if (!this.props.countries) {
+  useEffect(() => {
+    dispatch(fetchCountries());
+  }, [dispatch]);
+
+  function renderCountries() {
+    if (!countries) {
       return <div>Engin lönd skráð</div>;
     }
-    return this.props.countries.reverse().map((country) => {
-		return (
-			<div className="" key={country._id}>
-				<span className="">{country.name}</span>
-			</div>
-		  );
+    return countries.reverse().map((country) => {
+      return (
+        <div className={style.singleValueListItem} key={country._id}>
+          <span>{country.name}</span>
+        </div>
+      );
     });
   }
-  render() {
-    return (
-      <div className={style.listView}>
-        <div className={style.listViewContainer}>
+
+  return (
+      <div className={style.listViewContainer}>
+        <div className={style.listViewHeading}>
           <h1>Skráð Lönd</h1>
-          <div className="">
-            {this.renderCountries()}
-          </div>
-          <Link to={this.props.auth ? "/countries/new" : "/"}>
+          <Link to={auth ? "/countries/new" : "/"} className={style.buttonContainer}>
             <Button
               buttonText="Skrá Land"
               iconName="arrow_forward"
@@ -38,13 +39,7 @@ class CountryList extends Component {
             ></Button>
           </Link>
         </div>
+        <div className={style.singleValueListContainer}>{renderCountries()}</div>
       </div>
-    );
-  }
-}
-
-function mapStateToProps({ auth, countries }) {
-  return { auth, countries };
-}
-
-export default connect(mapStateToProps, { fetchCountries })(CountryList);
+  );
+};

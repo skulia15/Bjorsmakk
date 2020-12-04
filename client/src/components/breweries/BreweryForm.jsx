@@ -44,15 +44,16 @@ class BreweryForm extends Component {
           </div>
 
           <div className={styles.buttonContainer}>
-            <Link to="/types">
+            <Link to="/breweries">
               <Button
-                onClick={() => this.nextPath("/types")}
+                onClick={() => this.nextPath("/breweries")}
                 buttonText="Hætta við"
                 type="cancel"
               ></Button>
             </Link>
 
             <a
+              href="/breweries"
               onClick={() => {
                 this.form.dispatchEvent(new Event("submit"));
               }}

@@ -1,60 +1,78 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-// import { Link } from "react-router-dom";
-import { fetchSingleBeer } from "../../actions";
-// import style from "../ListView.module.scss";
-// import Button from "../button/Button";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-class BeerDetails extends Component {
-  componentDidMount() {
-    this.props.fetchSingleBeer(this.props.match.params.id);
+import { fetchSingleBeer } from "../../actions";
+import style from "../DetailView.module.scss";
+
+export const BeerDetails = (props) => {
+  const dispatch = useDispatch();
+  let beer = useSelector((state) => state.beers);
+  if (beer.length > 1) {
+    beer = beer.filter(function (item) {
+      return item._id === props.match.params.id;
+    })[0];
   }
-  renderDivider(index, len) {
+
+  function renderDivider(index, len) {
     if (index < len - 1) {
       return <span>|</span>;
     }
   }
-  renderBeerType(types) {
+
+  function renderBeerType(types) {
     if (!types) {
       return;
     }
     return (
       <span>
         {types.map((type, index) => {
-          return <span key={index}>{type.typeName}{this.renderDivider(index, types.length)}</span>;
+          return (
+            <span key={index}>
+              {type.typeName}
+              {renderDivider(index, types.length)}
+            </span>
+          );
         })}
       </span>
     );
   }
-  render() {
-    const { beers } = this.props;
+
+  const BeerEmpty = () => {
     return (
-      <div>
-        <h1>{beers.name}</h1>
+      <div className={style.detailView}>
+        <h1>Sækir bjór...</h1>
+      </div>
+    );
+  }
+
+  const Beer = () => {
+    return (
+      <div className={style.detailView}>
+        <h1>{beer.name}</h1>
         <div className="">
           <span>Áfengisprósenta: </span>
-          <span>{beers.percentage}%</span>
+          <span>{beer.percentage}%</span>
         </div>
         <div className="">
           <span>Bjórflokkur: </span>
-          {this.renderBeerType(beers.type)}
+          {renderBeerType(beer.type)}
         </div>
         <div className="">
           <span>Brewery: </span>
-          <span>{beers.brewery?.name}</span>
+          <span>{beer.brewery?.name}</span>
         </div>
         <div className="">
           <span>Upprunaland: </span>
-          <span>{beers.brewery?.country.name}</span>
+          <span>{beer.brewery?.country.name}</span>
         </div>
       </div>
     );
   }
-}
 
-function mapStateToProps({ auth, beers }) {
-  console.log("beer", beers);
-  return { auth, beers };
-}
-
-export default connect(mapStateToProps, { fetchSingleBeer })(BeerDetails);
+  if (!beer || beer.length === 0) {
+    dispatch(fetchSingleBeer(props.match.params.id));
+    return <BeerEmpty />;
+  } else {
+    return <Beer />;
+  }
+};

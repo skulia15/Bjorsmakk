@@ -71,6 +71,13 @@ module.exports = (app) => {
     res.json(breweries);
   });
 
+  // GET SINGLE BREWERY
+  app.get("/api/breweries/:id", requireLogin, async (req, res) => {
+    const brewery = await Brewery.findOne({ _id: req.params.id })
+      .populate("country");
+    res.json(brewery);
+  });
+
   // POST BREWERY
   app.post("/api/breweries", requireLogin, async (req, res) => {
     const { name, country } = req.body;
@@ -84,6 +91,12 @@ module.exports = (app) => {
     await brewery.save();
 
     res.json(brewery);
+  });
+
+   // GET BEERS FOR BREWERY
+   app.get("/api/breweries/:id/beers", requireLogin, async (req, res) => {
+    const beersForBrewery = await Beer.find({ brewery: req.params.id }).populate("type")
+    res.json(beersForBrewery);
   });
 
   /* Countries */
@@ -100,8 +113,20 @@ module.exports = (app) => {
       createdBy: req.user.id,
       createdDate: Date.now(),
     });
-    await country.save();
+    country
+      .save()
+      .then(function (country) {
+        res.json(country);
+      })
+      .catch(function (err) {
+        if (err.name == "ValidationError") {
+          console.error("Error Validating!", err);
+          res.status(422).json(err);
+        } else {
+          console.error(err);
+          res.status(500).json(err);
+        }
+      });
 
-    res.json(country);
   });
 };

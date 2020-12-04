@@ -3,11 +3,14 @@
 .card {
   // background-color: red;
   height: 110px;
-  width: 300px;
-  box-shadow: 8px 1rem 0.5rem rgba(0, 0, 0, 0.15);
+  width: 285px;;
+  margin-bottom: 20px;
+  margin-right: 20px;
   border-radius: 15px;
   position: relative;
   background-color: white;
+  
+  box-shadow: 1px -1px 3px 4px rgba(208,166,166,0.3);
 
   .cardHeading {
     display: block;

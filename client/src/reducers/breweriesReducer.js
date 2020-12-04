@@ -1,11 +1,12 @@
-import { FETCH_BREWERIES } from '../actions/types';
+import { FETCH_BREWERIES, FETCH_SINGLE_BREWERY } from "../actions/types";
 
 export default function (state = [], action) {
-    switch (action.type) {
-        case FETCH_BREWERIES:
-            action.payload.push({'name': '--- Ekkert Valið ---', '_id': 0});
-            return action.payload;
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case FETCH_BREWERIES:
+      return action.payload;
+    case FETCH_SINGLE_BREWERY:
+      return action.payload || null;
+    default:
+      return state;
+  }
 }

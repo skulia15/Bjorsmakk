@@ -1,5 +1,4 @@
-.listView {
-  display: flex;
+
   .listViewContainer {
     margin: auto;
     width: 50%;
@@ -8,8 +7,13 @@
   .listContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    // justify-content: space-around;
     margin: auto;
+  }
+  .singleValueListContainer {
+    .singleValueListItem {
+      margin: 15px;
+    }
   }
   .listViewHeading {
     display: flex;
@@ -20,4 +24,3 @@
     right: 0;
     margin-top: 20px;
   }
-}

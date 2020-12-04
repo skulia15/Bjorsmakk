@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const beerSchema = new Schema({
-  name: String,
+  name: {type: String, required: [true, 'Beer requires a name']},
   percentage: Number,
   brewery: { type: Schema.Types.ObjectId, ref: "breweries" },
   type: [{ type: Schema.Types.ObjectId, ref: "types" }],
