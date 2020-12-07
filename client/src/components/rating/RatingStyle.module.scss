@@ -1,0 +1,9 @@
+.ratingContainer {
+    display: flex;
+    align-items: center;
+    line-height: 48px;
+    .ratingValue {
+        font-size: 24px;
+        margin-left: 15px;
+    }
+}

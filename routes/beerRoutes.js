@@ -4,6 +4,7 @@ const Beer = mongoose.model("beers");
 const Type = mongoose.model("types");
 const Brewery = mongoose.model("breweries");
 const Country = mongoose.model("countries");
+const Rating = mongoose.model("ratings");
 
 module.exports = (app) => {
   /* Beers */
@@ -127,6 +128,13 @@ module.exports = (app) => {
           res.status(500).json(err);
         }
       });
+  });
 
+  
+  /* Ratings */
+  // GET RATINGS FOR BEER
+  app.get("/api/ratings/:beerId", requireLogin, async (req, res) => {
+    const beer = await Rating.find({ beer: req.params.id })
+    res.json(beer);
   });
 };

@@ -62,3 +62,15 @@
 
   }
 }
+
+.cardLarge {
+  min-height: 130px;
+  width: 100%;
+  .cardHeading {
+    font-size: 24px;
+    height: 50px;
+  }
+  .cardTopRight {
+    top: 50%;
+  }
+}

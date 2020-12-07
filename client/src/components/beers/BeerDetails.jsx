@@ -7,35 +7,25 @@ import style from "../DetailView.module.scss";
 export const BeerDetails = (props) => {
   const dispatch = useDispatch();
   let beer = useSelector((state) => state.beers);
+  
   if (beer.length > 1) {
     beer = beer.filter(function (item) {
       return item._id === props.match.params.id;
     })[0];
   }
 
-  function renderDivider(index, len) {
-    if (index < len - 1) {
-      return <span>|</span>;
-    }
-  }
-
-  function renderBeerType(types) {
+  const BeerType = ({ types }) => {
     if (!types) {
       return;
     }
-    return (
-      <span>
-        {types.map((type, index) => {
-          return (
-            <span key={index}>
-              {type.typeName}
-              {renderDivider(index, types.length)}
-            </span>
-          );
-        })}
-      </span>
-    );
-  }
+    return types.map((type, i) => {
+      if (i < types.length - 1) {
+        return <span key={i}>{type.typeName} | </span>;
+      } else {
+        return <span key={i}>{type.typeName}</span>;
+      }
+    });
+  };
 
   const BeerEmpty = () => {
     return (
@@ -43,7 +33,7 @@ export const BeerDetails = (props) => {
         <h1>Sækir bjór...</h1>
       </div>
     );
-  }
+  };
 
   const Beer = () => {
     return (
@@ -55,7 +45,7 @@ export const BeerDetails = (props) => {
         </div>
         <div className="">
           <span>Bjórflokkur: </span>
-          {renderBeerType(beer.type)}
+          <BeerType types={beer.type} />
         </div>
         <div className="">
           <span>Brewery: </span>
@@ -67,7 +57,7 @@ export const BeerDetails = (props) => {
         </div>
       </div>
     );
-  }
+  };
 
   if (!beer || beer.length === 0) {
     dispatch(fetchSingleBeer(props.match.params.id));

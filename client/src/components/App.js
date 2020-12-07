@@ -9,6 +9,8 @@ import Landing from "./landing/Landing";
 import BeerNew from "./beers/BeerNew";
 import { BeerList } from "./beers/BeerList";
 import { BeerDetails } from "./beers/BeerDetails";
+import { BeerRate } from "./beers/BeerRate";
+
 
 import TypeNew from "./types/TypeNew";
 import { TypeList } from "./types/TypeList";
@@ -63,6 +65,7 @@ class App extends Component {
             <Route exact path="/events" component={EventList} />
             <Route exact path="/events/:id" component={EventDetails} />
             <Route exact path="/events/new" component={EventNew} />
+            <Route exact path="/events/:eventId/beer/:beerId" component={BeerRate} />
           </div>
         </BrowserRouter>
       </div>
