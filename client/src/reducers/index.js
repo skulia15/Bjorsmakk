@@ -7,6 +7,7 @@ import countriesReducer from './countriesReducer';
 import typesReducer from './typesReducer';
 import usersReducer from './usersReducer';
 import eventsReducer from './eventsReducer';
+import ratingsReducer from './ratingsReducer';
 
 export default combineReducers({
     auth: authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     countries: countriesReducer,
     types: typesReducer,
     users: usersReducer,
-    events: eventsReducer
+    events: eventsReducer,
+    ratings: ratingsReducer
 });

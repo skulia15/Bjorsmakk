@@ -9,7 +9,6 @@ class BeerNew extends Component {
   submit = (values) => {
     this.props.submitBeer(values, this.props.history);
   };
-
   render() {
     return <BeerForm className="formContainer" onBeerSubmit={this.submit} />;
   }

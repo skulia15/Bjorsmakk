@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Landing.module.scss';
 
-const Landing = () => {
+export const Landing = () => {
     return (
         <div className={styles.landing}>
             <h1>Bjórsmakk!</h1>
@@ -9,5 +9,3 @@ const Landing = () => {
         </div>
     );
 };
-
-export default Landing;

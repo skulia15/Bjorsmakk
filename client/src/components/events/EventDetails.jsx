@@ -7,15 +7,15 @@ import { fetchSingleEvent } from "../../actions";
 import style from "../DetailView.module.scss";
 import beerStyle from "../beers/BeerListItem.module.scss";
 
-export const EventDetails = (props) => {
+export const EventDetails = ({match}) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchSingleEvent(props.match.params.id));
-  }, [dispatch, props.match.params.id]);
-
   const auth = useSelector((state) => state.auth);
-  const event = useSelector((state) => state.events);
+  const event = useSelector((state) => state.events && state.events.length ? state.events.filter(function (item) { return item._id === match.params.id; })[0] : state.events);
+
+  useEffect(() => {
+    dispatch(fetchSingleEvent(match.params.id));
+  }, [dispatch, match.params.id]);
 
   const EventEmpty = () => {
     return (
@@ -38,16 +38,21 @@ export const EventDetails = (props) => {
       return event.beers.map((beer) => {
         return (
           <Link
-            to={auth ? `/events/${event._id}/beer/${beer._id}` : "/"}
+          to={{
+            pathname: auth ? `/events/${event._id}/beer/${beer._id}` : "/",
+            state: {
+              beer
+            }}}
             className={beerStyle.beerListItemContainer}
-            key={beer._id}
+            key={beer._id ? beer._id : beer}
+            
           >
             <BeerCard key={beer._id} beer={beer} />
           </Link>
         );
       });
     } else {
-      return <span>Enginn bjór skráður</span>;
+      return <span>Hleður...</span>;
     }
   };
 

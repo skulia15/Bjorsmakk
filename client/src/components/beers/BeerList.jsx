@@ -39,7 +39,6 @@ export const BeerList = () => {
   };
 
   return (
-    // <div className={style.listView}>
     <div className={style.listViewContainer}>
       <div className={style.listViewHeading}>
         <h1>Bjórlisti</h1>

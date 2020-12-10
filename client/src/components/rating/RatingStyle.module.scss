@@ -1,9 +1,74 @@
 .ratingContainer {
-    display: flex;
-    align-items: center;
-    line-height: 48px;
-    .ratingValue {
-        font-size: 24px;
-        margin-left: 15px;
-    }
+  display: flex;
+  align-items: center;
+  line-height: 48px;
+  &:first-child {
+    background-color: red;
+    width: 500px;
+  }
+  .ratingValue {
+    font-size: 24px;
+    margin-left: 15px;
+  }
+}
+
+.ratingListContainer {
+  display: flex;
+  margin: auto;
+  margin-top: 30px;
+  width: 50%;
+  border-radius: 15px;
+}
+
+.ratingCard {
+  height: 105px;
+  width: 285px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  position: relative;
+  background-color: white;
+  box-shadow: 1px -1px 3px 4px rgba(208, 166, 166, 0.3);
+  .ratingCardHeading {
+    display: block;
+    height: 40px;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 50px;
+    border-radius: 15px 15px 0 0;
+    color: white;
+    background-color: #da0000;
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .ratingCardSubHeading {
+    display: block;
+    width: 100%;
+    color: #393535;
+    font-size: 16px;
+    padding-left: 10px;
+  }
+  .score {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    height: 40px;
+    width: 40px;
+    background-color: #005c01;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+  }
+}
+
+.starRatingContainer {
+  padding-left: 10px;
 }

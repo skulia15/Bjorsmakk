@@ -14,7 +14,7 @@ export const CountryList = (props) => {
     dispatch(fetchCountries());
   }, [dispatch]);
 
-  function renderCountries() {
+  function Countries() {
     if (!countries) {
       return <div>Engin lönd skráð</div>;
     }
@@ -28,18 +28,23 @@ export const CountryList = (props) => {
   }
 
   return (
-      <div className={style.listViewContainer}>
-        <div className={style.listViewHeading}>
-          <h1>Skráð Lönd</h1>
-          <Link to={auth ? "/countries/new" : "/"} className={style.buttonContainer}>
-            <Button
-              buttonText="Skrá Land"
-              iconName="arrow_forward"
-              type="success"
-            ></Button>
-          </Link>
-        </div>
-        <div className={style.singleValueListContainer}>{renderCountries()}</div>
+    <div className={style.listViewContainer}>
+      <div className={style.listViewHeading}>
+        <h1>Skráð Lönd</h1>
+        <Link
+          to={auth ? "/countries/new" : "/"}
+          className={style.buttonContainer}
+        >
+          <Button
+            buttonText="Skrá Land"
+            iconName="arrow_forward"
+            type="success"
+          ></Button>
+        </Link>
       </div>
+      <div className={style.singleValueListContainer}>
+        <Countries />
+      </div>
+    </div>
   );
 };

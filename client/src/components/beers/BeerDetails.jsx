@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchSingleBeer } from "../../actions";
+import { fetchSingleBeer, fetchRatingsForBeer } from "../../actions";
 import style from "../DetailView.module.scss";
+import ratingStyle from "../rating/RatingStyle.module.scss";
+import ReactStars from "react-rating-stars-component";
 
-export const BeerDetails = (props) => {
+export const BeerDetails = ({ match }) => {
   const dispatch = useDispatch();
-  let beer = useSelector((state) => state.beers);
-  
-  if (beer.length > 1) {
-    beer = beer.filter(function (item) {
-      return item._id === props.match.params.id;
-    })[0];
-  }
+  const beer = useSelector((state) =>
+    state.beers && state.beers.length
+      ? state.beers.filter(function (item) {
+          return item._id === match.params.id;
+        })[0]
+      : state.beers
+  );
+
+  const ratings = useSelector((state) => state.ratings);
+
+  useSelector((state) => console.log(state));
+
+  useEffect(() => {
+    dispatch(fetchSingleBeer(match.params.id));
+    dispatch(fetchRatingsForBeer(match.params.id));
+  }, [dispatch, match.params.id]);
 
   const BeerType = ({ types }) => {
     if (!types) {
-      return;
+      return null;
     }
     return types.map((type, i) => {
       if (i < types.length - 1) {
@@ -27,7 +38,7 @@ export const BeerDetails = (props) => {
     });
   };
 
-  const BeerEmpty = () => {
+  const BeerLoading = () => {
     return (
       <div className={style.detailView}>
         <h1>Sækir bjór...</h1>
@@ -43,7 +54,7 @@ export const BeerDetails = (props) => {
           <span>Áfengisprósenta: </span>
           <span>{beer.percentage}%</span>
         </div>
-        <div className="">
+        <div>
           <span>Bjórflokkur: </span>
           <BeerType types={beer.type} />
         </div>
@@ -59,10 +70,59 @@ export const BeerDetails = (props) => {
     );
   };
 
+  const RatingCard = ({ rating }) => {
+    return (
+      <div className={ratingStyle.ratingCard} key={rating._id}>
+        <div className={ratingStyle.ratingCardHeading}>{rating.user.name}</div>
+        <div className={ratingStyle.ratingCardSubHeading}>
+          {rating.event.name}
+        </div>
+        <div className={ratingStyle.score}>{rating.score}★</div>
+        <div className={ratingStyle.starRatingContainer}>
+          <ReactStars
+            count={10}
+            size={24}
+            edit={false}
+            isHalf="true"
+            activeColor="#ffd700"
+            value={rating.score}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const PreviousRatings = () => {
+    if (!ratings) {
+      return (
+        null
+      );
+    } 
+    else if (ratings.length === 0) {
+      return (
+        <div>
+          Þessum bjór hefur ekki verið gefin einkunn
+        </div>
+      );
+    }
+    else {
+      console.log(ratings);
+      return ratings.reverse().map((rating) => {
+        return <RatingCard rating={rating} key={rating._id} />;
+      });
+    }
+  };
+
   if (!beer || beer.length === 0) {
-    dispatch(fetchSingleBeer(props.match.params.id));
-    return <BeerEmpty />;
+    return <BeerLoading />;
   } else {
-    return <Beer />;
+    return (
+      <div>
+        <Beer />
+        <div className={ratingStyle.ratingListContainer}>
+          <PreviousRatings />
+        </div>
+      </div>
+    );
   }
 };

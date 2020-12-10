@@ -39,7 +39,6 @@ export const BreweryList = (props) => {
   };
 
   return (
-    <div className={style.listView}>
       <div className={style.listViewContainer}>
         <div className={style.listViewHeading}>
           <h1>Brugghús</h1>
@@ -58,6 +57,5 @@ export const BreweryList = (props) => {
           <Breweries />
         </div>
       </div>
-    </div>
   );
 };

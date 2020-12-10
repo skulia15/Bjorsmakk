@@ -58,7 +58,7 @@ class BeerForm extends Component {
               label="Prósenta % (dæmi: 4.5 )"
               name="percentage"
             ></NumberInput>
-            <div className={`${formStyle.form__group}`}>
+            <div className={`${formStyle.form__group}`}  style={{ maxWidth: "290px" }}>
               <label className={formStyle.form__label}>Bjórflokkur</label>
               <Multiselect
                 options={this.props.types} // Options to display in the dropdown

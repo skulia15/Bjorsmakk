@@ -3,14 +3,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
-import Header from "./header/Header";
-import Landing from "./landing/Landing";
+import { Header } from "./header/Header";
+import { Landing } from "./landing/Landing";
 
 import BeerNew from "./beers/BeerNew";
 import { BeerList } from "./beers/BeerList";
 import { BeerDetails } from "./beers/BeerDetails";
 import { BeerRate } from "./beers/BeerRate";
-
 
 import TypeNew from "./types/TypeNew";
 import { TypeList } from "./types/TypeList";
@@ -22,11 +21,11 @@ import { BreweryDetails } from "./breweries/BreweryDetails";
 import { CountryList } from "./countries/CountryList";
 import CountryNew from "./countries/CountryNew";
 
-import UserList from "./users/UserList";
+import { UserList } from "./users/UserList";
 
-import {EventList} from "./events/EventList";
+import { EventList } from "./events/EventList";
 import EventNew from "./events/EventNew";
-import {EventDetails} from "./events/EventDetails";
+import { EventDetails } from "./events/EventDetails";
 
 import "./base.scss";
 
@@ -62,10 +61,17 @@ class App extends Component {
 
             <Route exact path="/users" component={UserList} />
 
-            <Route exact path="/events" component={EventList} />
-            <Route exact path="/events/:id" component={EventDetails} />
-            <Route exact path="/events/new" component={EventNew} />
-            <Route exact path="/events/:eventId/beer/:beerId" component={BeerRate} />
+            <Switch>
+              <Route exact path="/events" component={EventList} />
+              <Route exact path="/events/new" component={EventNew} />
+              <Route exact path="/events/:id" component={EventDetails} />
+            </Switch>
+
+            <Route
+              exact
+              path="/events/:eventId/beer/:beerId"
+              component={BeerRate}
+            />
           </div>
         </BrowserRouter>
       </div>

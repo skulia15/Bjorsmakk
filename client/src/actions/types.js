@@ -15,3 +15,7 @@ export const FETCH_COUNTRIES = 'fetch_countries';
 export const FETCH_EVENTS = 'fetch_events';
 export const FETCH_SINGLE_EVENT = 'fetch_single_event';
 
+export const FETCH_RATINGS_FOR_BEER = 'fetch_ratings_for_beer';
+export const FETCH_PREVIOUS_RATING = 'fetch_previous_rating';
+
+

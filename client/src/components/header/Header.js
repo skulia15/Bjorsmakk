@@ -1,12 +1,16 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import "../../components/button/GoogleButton.scss";
 
-class Header extends Component {
-  renderLogInOut() {
-    switch (this.props.auth) {
+export const Header = () => {
+
+  const auth = useSelector((state) => state.auth);
+
+  const LogInOut = () => {
+    switch (auth) {
       case null:
         return "";
       case false:
@@ -26,78 +30,61 @@ class Header extends Component {
         );
       default:
         return (
-          <li className={styles.navigationLink}>
+          <div className={styles.navigationLink}>
             <a href="/api/logout">Útskrá</a>
-          </li>
+          </div>
         );
     }
-  }
+  };
 
-  renderLinks() {
-    if (this.props.auth) {
+  const Links = () => {
+    if (auth) {
       return (
         <React.Fragment>
-          <Link
-            to={this.props.auth ? "/beers" : "/"}
-            className={styles.navigationLink}
-          >
+          <Link to={auth ? "/beers" : "/"} className={styles.navigationLink}>
             Bjórar
           </Link>
           <Link
-            to={this.props.auth ? "/breweries" : "/"}
+            to={auth ? "/breweries" : "/"}
             className={styles.navigationLink}
           >
             Brugghús
           </Link>
-          <Link
-            to={this.props.auth ? "/types" : "/"}
-            className={styles.navigationLink}
-          >
+          <Link to={auth ? "/types" : "/"} className={styles.navigationLink}>
             Bjórflokkar
           </Link>
           <Link
-            to={this.props.auth ? "/countries" : "/"}
+            to={auth ? "/countries" : "/"}
             className={styles.navigationLink}
           >
             Lönd
           </Link>
-          <Link
-            to={this.props.auth ? "/users" : "/"}
-            className={styles.navigationLink}
-          >
+          <Link to={auth ? "/users" : "/"} className={styles.navigationLink}>
             Notendur
           </Link>
 
-          <Link
-            to={this.props.auth ? "/events" : "/"}
-            className={styles.navigationLink}
-          >
+          <Link to={auth ? "/events" : "/"} className={styles.navigationLink}>
             Viðburðir
           </Link>
         </React.Fragment>
       );
     }
-  }
-  render() {
-    return (
-      <nav className={styles.navigation}>
-        <div className={styles.linkContainer}>
-          <Link
-            to={this.props.auth ? "/" : "/"}
-            className={styles.navigationLink}
-          >
-            Jólabjórsmakk
-          </Link>
-          {this.renderLinks()}
-          <div className={styles.logInOutLink}>{this.renderLogInOut()}</div>
+    else {
+      return (null)
+    }
+  };
+
+  return (
+    <nav className={styles.navigation}>
+      <div className={styles.linkContainer}>
+        <Link to={auth ? "/" : "/"} className={styles.navigationLink}>
+          Jólabjórsmakk
+        </Link>
+        <Links />
+        <div className={styles.logInOutLink}>
+          <LogInOut />
         </div>
-      </nav>
-    );
-  }
-}
-
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-export default connect(mapStateToProps)(Header);
+      </div>
+    </nav>
+  );
+};

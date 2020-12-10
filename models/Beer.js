@@ -6,7 +6,7 @@ const beerSchema = new Schema({
   percentage: Number,
   brewery: { type: Schema.Types.ObjectId, ref: "breweries" },
   type: [{ type: Schema.Types.ObjectId, ref: "types" }],
-  createdBy: { type: Schema.Types.ObjectId, ref: "User" },
+  createdBy: { type: Schema.Types.ObjectId, ref: "users" },
   createdDate: Date,
 });
 

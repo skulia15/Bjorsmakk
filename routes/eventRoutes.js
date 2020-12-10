@@ -2,10 +2,12 @@ const requireLogin = require("../middlewares/requireLogin");
 const mongoose = require("mongoose");
 const Event = mongoose.model("events");
 
+const ObjectId = require("mongoose").Types.ObjectId;
+
 module.exports = (app) => {
   /* Events */
   app.get("/api/events", requireLogin, async (req, res) => {
-    const events = await Event.find();
+    const events = await Event.find({ "users": ObjectId(req.user.id) });
     res.json(events);
   });
 
