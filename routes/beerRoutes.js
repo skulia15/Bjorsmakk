@@ -50,6 +50,29 @@ module.exports = (app) => {
     res.json(beer);
   });
 
+  // PUT BEER
+  app.put("/api/beers/:id", requireLogin, async (req, res) => {
+    const { id } = req.params;
+    const { name, percentage, type, brewery } = req.body;
+    const beer = await Beer.findOne({ _id: id });
+
+    beer.name = name;
+    beer.percentage = percentage;
+    beer.type = type;
+    beer.brewery = brewery;
+
+    await beer.save();
+
+    res.json(beer);
+  });
+
+  // DELETE BEER
+  app.delete("/api/beers/:id", requireLogin, async (req, res) => {
+    const { id } = req.params;
+
+    const delResult = await Beer.findByIdAndDelete({ _id: id });
+    res.json(delResult);
+  });
   /* Types */
 
   // GET Types
@@ -141,38 +164,42 @@ module.exports = (app) => {
 
   /* Ratings */
 
-
   // GET USERS PREVIOUS RATING (FOR BEER IN CURRENT EVENT)
-  app.get("/api/ratings/:beerId/previousRating", requireLogin, async (req, res) => {
-    const { eventId, ratedById } = req.query;
-    const {beerId} = req.params;
-    await Rating.findOne(
-      {
-        beer: new ObjectId(beerId),
-        event: new ObjectId(eventId),
-        user: new ObjectId(ratedById),
-      },
-      function (err, result) {
-        if (err) {
-          res.status(500).send(err);
+  app.get(
+    "/api/ratings/:beerId/previousRating",
+    requireLogin,
+    async (req, res) => {
+      const { eventId, ratedById } = req.query;
+      const { beerId } = req.params;
+      await Rating.findOne(
+        {
+          beer: new ObjectId(beerId),
+          event: new ObjectId(eventId),
+          user: new ObjectId(ratedById),
+        },
+        function (err, result) {
+          if (err) {
+            res.status(500).send(err);
+          }
+          if (!result) {
+            res.status(200).send(null);
+          }
+          if (result) {
+            res.json({ score: result.score, beerId: beerId });
+          }
         }
-        if (!result) {
-          res.status(200).send(null);
-        }
-        if (result) {
-          res.json({score: result.score, beerId: beerId});
-        }
-      }
-    );
-  });
+      );
+    }
+  );
 
-    // GET RATINGS FOR BEER
+  // GET RATINGS FOR BEER
   app.get("/api/ratings/:beerId", requireLogin, async (req, res) => {
-    const {beerId} = req.params;
-    const beer = await Rating.find({ beer: new ObjectId(beerId) }).populate('event', 'name').populate('user');
+    const { beerId } = req.params;
+    const beer = await Rating.find({ beer: new ObjectId(beerId) })
+      .populate("event", "name")
+      .populate("user");
     res.json(beer);
   });
-
 
   // SUBMIT RATING FOR BEER
   app.post("/api/ratings", requireLogin, async (req, res) => {
@@ -197,16 +224,16 @@ module.exports = (app) => {
             createdBy: req.user.id,
             createdDate: Date.now(),
           });
-          
+
           ratingEntry.save();
-          res.json({score: ratingEntry.score, beerId: beerId});
+          res.json({ score: ratingEntry.score, beerId: beerId });
         }
         if (result) {
           result.score = rating;
           result.save();
-            res.json({score: result.score, beerId: beerId});
+          res.json({ score: result.score, beerId: beerId });
         }
       }
-    )
+    );
   });
 };

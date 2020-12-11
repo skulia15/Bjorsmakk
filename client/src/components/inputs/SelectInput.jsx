@@ -1,11 +1,11 @@
 import React from "react";
 import props from "prop-types";
-import { Field } from "redux-form";
+
 
 import style from "./SelectInput.module.scss";
 import formStyle from "../Form.module.scss";
 
-const SelectInput = ({ label, name, options, valueKey, optionKey }) => {
+const SelectInput = React.forwardRef(({ label, name, options, valueKey, optionKey }, ref) => {
   const Options = () => {
     return options
       .sort((a, b) =>
@@ -24,11 +24,11 @@ const SelectInput = ({ label, name, options, valueKey, optionKey }) => {
       <label htmlFor={props.label} className={formStyle.form__label}>
         {label}
       </label>
-      <Field component="select" name={name} className={style.selectInput}>
+      <select component="select" name={name} className={style.selectInput} ref={ref}>
         <Options />
-      </Field>
+      </select>
     </div>
   );
-};
+});
 
 export default SelectInput;

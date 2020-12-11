@@ -38,7 +38,7 @@ export const CountryList = (props) => {
           <Button
             buttonText="Skrá Land"
             iconName="arrow_forward"
-            type="success"
+            buttonType="success"
           ></Button>
         </Link>
       </div>

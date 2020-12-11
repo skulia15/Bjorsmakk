@@ -1,6 +1,8 @@
 .selectInput {
-  border: 0;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
   width: 100%;
   outline: none;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 5px;
+  max-width: 290px;
 }

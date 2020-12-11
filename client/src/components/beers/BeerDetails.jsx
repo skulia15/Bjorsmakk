@@ -1,13 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { fetchSingleBeer, fetchRatingsForBeer } from "../../actions";
+import { fetchSingleBeer, fetchRatingsForBeer, deleteBeer } from "../../actions";
+
 import style from "../DetailView.module.scss";
 import ratingStyle from "../rating/RatingStyle.module.scss";
 import ReactStars from "react-rating-stars-component";
 
-export const BeerDetails = ({ match }) => {
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
+export const BeerDetails = ({ match, history }) => {
   const dispatch = useDispatch();
+
+  const ratings = useSelector((state) => state.ratings);
+
   const beer = useSelector((state) =>
     state.beers && state.beers.length
       ? state.beers.filter(function (item) {
@@ -16,9 +24,23 @@ export const BeerDetails = ({ match }) => {
       : state.beers
   );
 
-  const ratings = useSelector((state) => state.ratings);
+  const handleDelete = () => {
+    confirmAlert({
+      title: 'Staðfesta',
+      message: 'Ertu viss um að þú viljir eyða þessum bjór?',
+      buttons: [
+        {
+          label: 'Já',
+          onClick: () => dispatch(deleteBeer(beer._id, history))
+        },
+        {
+          label: 'Nei'
+        }
+      ]
+    });
+  }
 
-  useSelector((state) => console.log(state));
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchSingleBeer(match.params.id));
@@ -66,6 +88,10 @@ export const BeerDetails = ({ match }) => {
           <span>Upprunaland: </span>
           <span>{beer.brewery?.country.name}</span>
         </div>
+        <div className={style.controls}>
+          <Link to={auth ? `/beers/edit/${beer._id}` : "/"} className={style.edit}>Breyta</Link>
+          <div className={style.delete} onClick={() => handleDelete()}>Eyða</div>
+        </div>
       </div>
     );
   };
@@ -94,19 +120,10 @@ export const BeerDetails = ({ match }) => {
 
   const PreviousRatings = () => {
     if (!ratings) {
-      return (
-        null
-      );
-    } 
-    else if (ratings.length === 0) {
-      return (
-        <div>
-          Þessum bjór hefur ekki verið gefin einkunn
-        </div>
-      );
-    }
-    else {
-      console.log(ratings);
+      return null;
+    } else if (ratings.length === 0) {
+      return <div>Þessum bjór hefur ekki verið gefin einkunn</div>;
+    } else {
       return ratings.reverse().map((rating) => {
         return <RatingCard rating={rating} key={rating._id} />;
       });

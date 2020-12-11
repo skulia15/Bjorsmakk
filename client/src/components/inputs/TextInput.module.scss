@@ -1,21 +1,13 @@
-// .textInput {
-//     margin-bottom: 5px;
-//     width: 270px;
-//     padding: 9px;
-//     margin: 10px 0;
-//     border: 0;
-//     border-bottom: 2px solid #cccccc;
-//     outline: none;
-// }
-
 $primary: #11998e;
 $secondary: #38ef7d;
 $gray: #9b9b9b;
 .form__group {
   position: relative;
   padding: 15px 0 0;
+  margin: auto;
   margin-top: 10px;
   margin-bottom: 20px;
+  max-width: 290px;
 }
 
 .form__field {
@@ -28,6 +20,8 @@ $gray: #9b9b9b;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
+  max-width: 290px;
+
 
   &::placeholder {
     color: transparent;

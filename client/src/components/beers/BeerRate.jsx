@@ -98,19 +98,6 @@ export const BeerRate = ({ match, location }) => {
       </div>
     );
   } else {
-    console.log('"""""""""""""""""""""""""""""""""""""');
-    console.log('event', event);
-    if(rating) {
-      console.log('rating', rating);
-      console.log('rating.beer', rating.beerId);
-    }
-    console.log('!rating', !rating);
-    if(beer) {
-      console.log('beer._id', beer._id);
-    }
-    console.log('!rating || rating.beerId === beer._id', !rating || rating.beerId === beer._id);
-    console.log('"""""""""""""""""""""""""""""""""""""');
-
     return <BeerRateLoading />;
   }
 };

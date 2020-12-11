@@ -36,7 +36,7 @@ export const TypeList = (props) => {
           <Button
             buttonText="Skrá Bjórflokk"
             iconName="arrow_forward"
-            type="success"
+            buttonType="success"
           ></Button>
         </Link>
       </div>

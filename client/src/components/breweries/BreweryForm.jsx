@@ -48,7 +48,7 @@ class BreweryForm extends Component {
               <Button
                 onClick={() => this.nextPath("/breweries")}
                 buttonText="Hætta við"
-                type="cancel"
+                buttonType="cancel"
               ></Button>
             </Link>
 
@@ -61,7 +61,7 @@ class BreweryForm extends Component {
               <Button
                 buttonText="Skrá brugghús"
                 iconName="arrow_forward"
-                type="success"
+                buttonType="success"
               ></Button>
             </a>
           </div>

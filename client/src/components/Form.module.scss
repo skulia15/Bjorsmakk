@@ -40,9 +40,10 @@
 .form__group {
   position: relative;
   padding: 15px 0 0;
+  margin: auto;
   margin-top: 10px;
   margin-bottom: 20px;
-
+  max-width: 290px;
   .form__label {
     margin-bottom: 10px;
   }

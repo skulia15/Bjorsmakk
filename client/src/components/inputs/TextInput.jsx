@@ -1,25 +1,24 @@
 import React from 'react';
-import { Field } from "redux-form";
 
 import style from "./TextInput.module.scss";
 
-const TextInput = (props) => {
+const TextInput = React.forwardRef(({placeholder, name, label}, ref) => {
   return (
       <div className={`${style.form__group}`}>
-        <Field
+        <input
           type="text"
-          component="input"
           className={style.form__field}
-          placeholder={props.placeholder}
-          name={props.name}
-          id={props.placeholder}
+          placeholder={placeholder}
+          name={name}
+          id={placeholder}
+          ref={ref}
           required
-        ></Field>
-        <label htmlFor={props.placeholder} className={style.form__label}>
-          {props.label}
+        ></input>
+        <label htmlFor={placeholder} className={style.form__label}>
+          {label}
         </label>
       </div>
   );
-};
+});
 
 export default TextInput;

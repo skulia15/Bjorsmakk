@@ -10,9 +10,10 @@ import style from "../ListView.module.scss";
 import beerStyle from "./BeerListItem.module.scss";
 
 export const BeerList = () => {
+  const dispatch = useDispatch();
+  
   const beers = useSelector((state) => state.beers);
   const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchBeers());
@@ -33,8 +34,12 @@ export const BeerList = () => {
             </Link>
           );
         });
-    } else {
+    }
+    else if(beers && beers.length === 0) {
       return <h1>Hleður Bjórum...</h1>;
+    } 
+    else {
+      return <div>Enginn bjór hefur verið skráður</div>;
     }
   };
 
@@ -46,7 +51,7 @@ export const BeerList = () => {
           <Button
             buttonText="Skrá bjór"
             iconName="arrow_forward"
-            type="success"
+            buttonType="success"
           ></Button>
         </Link>
       </div>

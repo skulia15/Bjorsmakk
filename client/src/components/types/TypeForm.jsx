@@ -36,7 +36,7 @@ class TypeForm extends Component {
               <Button
                 onClick={() => this.nextPath("/types")}
                 buttonText="Hætta við"
-                type="cancel"
+                buttonType="cancel"
               ></Button>
             </Link>
 
@@ -49,7 +49,7 @@ class TypeForm extends Component {
               <Button
                 buttonText="Skrá flokk"
                 iconName="arrow_forward"
-                type="success"
+                buttonType="success"
               ></Button>
             </a>
           </div>

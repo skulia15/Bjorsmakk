@@ -2,18 +2,18 @@ import React from 'react';
 
 import style from "./Button.module.scss";
 
-const Button = (props) => {
+const Button = ({iconName, buttonType, icon, buttonText, onClickMethod}) => {
   function getIcon(){
-    if(props.icon) {
-      return(<i className={props.iconName}></i>)
+    if(icon) {
+      return(<i className={iconName}></i>)
     }
     return;
   }
   return (
-    <div className={`${style.button} ${props.type? style[props.type] : ''}`}>
-        {props.buttonText}
+    <button className={`${style.button} ${buttonType? style[buttonType] : ''}`}>
+        {buttonText}
         {getIcon()}
-    </div>
+    </button>
   );
 };
 

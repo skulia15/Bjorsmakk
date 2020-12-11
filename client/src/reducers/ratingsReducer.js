@@ -5,7 +5,6 @@ export default function(state = null, action) {
         case FETCH_PREVIOUS_RATING:
             return action.payload || null;
         case FETCH_RATINGS_FOR_BEER:
-            console.log(action.payload);
             return action.payload || null;
         default:
             return state;

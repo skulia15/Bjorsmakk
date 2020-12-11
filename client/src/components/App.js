@@ -6,7 +6,7 @@ import * as actions from "../actions";
 import { Header } from "./header/Header";
 import { Landing } from "./landing/Landing";
 
-import BeerNew from "./beers/BeerNew";
+import {BeerForm} from "./beers/BeerForm";
 import { BeerList } from "./beers/BeerList";
 import { BeerDetails } from "./beers/BeerDetails";
 import { BeerRate } from "./beers/BeerRate";
@@ -43,7 +43,8 @@ class App extends Component {
 
             <Switch>
               <Route exact path="/beers" component={BeerList} />
-              <Route exact path="/beers/new" component={BeerNew} />
+              <Route exact path="/beers/new" component={BeerForm} />
+              <Route exact path="/beers/edit/:id" component={BeerForm} />
               <Route path="/beers/:id" component={BeerDetails} />
             </Switch>
 

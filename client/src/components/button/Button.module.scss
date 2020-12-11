@@ -9,10 +9,15 @@
     vertical-align: middle;
     line-height: 40px;
     transition: all .2s;
-    
+    border: 0;
+    font-size: 1rem;
+    outline:none;
 
     &:hover {
         cursor: pointer;
+    }
+    &:active {
+        border: 0;
     }
 }
 .success {

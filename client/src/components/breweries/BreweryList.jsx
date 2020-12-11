@@ -49,7 +49,7 @@ export const BreweryList = (props) => {
             <Button
               buttonText="Skrá Brugghús"
               iconName="arrow_forward"
-              type="success"
+              buttonType="success"
             ></Button>
           </Link>
         </div>

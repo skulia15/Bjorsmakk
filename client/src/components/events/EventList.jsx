@@ -17,20 +17,21 @@ export const EventList = () => {
   }, [dispatch]);
 
   const Events = () => {
-    if (!events) {
-      return <div>Hleður viðburðum...</div>;
+    if (events && events.length) {
+      return events.reverse().map((event) => {
+        return (
+          <Link to={auth ? `/events/${event._id}` : "/"} key={event._id}>
+            <div className={style.singleValueListItem}>{event.name}</div>
+          </Link>
+        );
+      });
     }
-    if(events.length === 0) {
+    else if(events && events.length === 0) {
       return <div>Þú hefur ekki verið skráður í viðburð.</div>;
     }
-
-    return events.reverse().map((event) => {
-      return (
-        <Link to={auth ? `/events/${event._id}` : "/"} key={event._id}>
-          <div className={style.singleValueListItem}>{event.name}</div>
-        </Link>
-      );
-    });
+    else {
+      return <div>Hleður viðburðum...</div>;
+    }
   };
 
   return (
@@ -41,7 +42,7 @@ export const EventList = () => {
           <Button
             buttonText="Skrá Viðburð"
             iconName="arrow_forward"
-            type="success"
+            buttonType="success"
           ></Button>
         </Link>
       </div>

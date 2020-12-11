@@ -1,11 +1,8 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { reduxForm } from "redux-form";
-import { change as changeFieldValue } from "redux-form";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import { Multiselect } from "multiselect-react-dropdown";
 import NumberInput from "../inputs/NumberInput";
@@ -13,105 +10,134 @@ import SelectInput from "../inputs/SelectInput";
 import TextInput from "../inputs/TextInput";
 import Button from "../button/Button";
 
-import { fetchTypes, fetchBreweries } from "../../actions";
+import {
+  fetchTypes,
+  fetchBreweries,
+  submitBeer,
+  fetchSingleBeer,
+  editBeer,
+} from "../../actions";
 
 import formStyle from "../Form.module.scss";
 import styles from "../Form.module.scss";
 
-class BeerForm extends Component {
-  constructor() {
-    super();
-    this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
-  }
-  state = {
-    selectedTypesValues: [],
-  };
-  nextPath(path) {
-    this.props.history.push(path);
-  }
-  componentDidMount() {
-    this.props.fetchTypes();
-    this.props.fetchBreweries();
-  }
+export const BeerForm = ({ history, match }) => {
+  const dispatch = useDispatch();
 
-  handleMultiselectChange(selected) {
-    if (changeFieldValue) {
-      this.props.dispatch(changeFieldValue("beerForm", "type", selected));
+  const { register, handleSubmit, setValue } = useForm();
+
+  const { id } = match.params;
+  const isEditMode = !!id;
+  const types = useSelector((state) => state.types);
+  const breweries = useSelector((state) => state.breweries);
+  const beer = useSelector((state) => state.beers);
+  const [selectedTypes, setSelectedTypes] = useState(0);
+
+  const onSubmit = (data) => {
+    if (isEditMode) {
+      dispatch(editBeer(id, data, history));
+    } else {
+      dispatch(submitBeer(data, history));
     }
-  }
-  render() {
-    return (
-      <div className={`${styles.formContainer} ${styles.formContainer__centered}`}>
-        <div className={styles.formHeader}>Skrá Bjór</div>
+  };
 
-        <form
-          name="beerForm"
-          className={styles.standardForm}
-          onSubmit={this.props.handleSubmit(this.props.onBeerSubmit)}
-          ref={(ref) => {
-            this.form = ref;
-          }}
-        >
-          <div className={styles.inputsContainer}>
-            <TextInput placeholder="Nafn" label="Nafn" name="name"></TextInput>
-            <NumberInput
-              label="Prósenta % (dæmi: 4.5 )"
-              name="percentage"
-            ></NumberInput>
-            <div className={`${formStyle.form__group}`}  style={{ maxWidth: "290px" }}>
-              <label className={formStyle.form__label}>Bjórflokkur</label>
-              <Multiselect
-                options={this.props.types} // Options to display in the dropdown
-                selectedValues={this.state.selectedTypesValues} // Preselected value to persist in dropdown
-                displayValue="typeName" // Property name to display in the dropdown options
-                onSelect={this.handleMultiselectChange}
-              />
-            </div>
-            <SelectInput
-              label="Brugghús"
-              name="brewery"
-              options={this.props.breweries}
-              optionKey="name"
-              valueKey="_id"
-            ></SelectInput>
-          </div>
+  useEffect(() => {
+    dispatch(fetchTypes());
+    dispatch(fetchBreweries());
+  }, [dispatch]);
 
-          <div className={styles.buttonContainer}>
-            {/* todo: clickhandler not working */}
-            <Link to="/beers">
-              <Button buttonText="Hætta við" type="cancel"></Button>
-            </Link>
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchSingleBeer(id));
+    }
+  }, [dispatch, id]);
 
-            <a
-              href="/beers"
-              onClick={() => {
-                this.form.dispatchEvent(new Event("submit"));
-              }}
-            >
-              <Button
-                buttonText="Skrá Bjór"
-                iconName="arrow_forward"
-                type="success"
-              ></Button>
-            </a>
-          </div>
-        </form>
+  React.useEffect(() => {
+    register("type"); // custom register type multiselect input
+  }, [register]);
+
+  useEffect(() => {
+    if (isEditMode && beer && beer.length !== 0) {
+      setValue("name", beer.name);
+      setValue("percentage", beer.percentage);
+      setValue("brewery", beer.brewery?._id);
+      setValue("type", beer.type);
+      setSelectedTypes(beer.type);
+    }
+  }, [beer]);
+
+  const handleTypesChange = (values) => {
+    setValue("type", values);
+    setSelectedTypes(values);
+  };
+
+  return (
+    <div
+      className={`${styles.formContainer} ${styles.formContainer__centered}`}
+    >
+      <div className={styles.formHeader}>
+        Skrá Bjór
       </div>
-    );
-  }
-}
 
-function mapStateToProps({ auth, types, breweries }) {
-  return { auth, types, breweries };
-}
+      <form
+        name="beerForm"
+        className={styles.standardForm}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className={styles.inputsContainer}>
+          <TextInput
+            label="Nafn"
+            name="name"
+            placeholder=" "
+            ref={register}
+            required
+          ></TextInput>
+          <NumberInput
+            label="Prósenta % (dæmi: 4.5 )"
+            name="percentage"
+            ref={register}
+            required
+          />
+          <div
+            className={`${formStyle.form__group}`}
+            style={{ maxWidth: "290px" }}
+          >
+            <label className={formStyle.form__label}>Bjórflokkur</label>
+            <Multiselect
+              options={types} // Options to display in the dropdown
+              selectedValues={selectedTypes} // Preselected value to persist in dropdown
+              displayValue="typeName" // Property name to display in the dropdown options
+              onSelect={handleTypesChange}
+            />
+          </div>
+          <SelectInput
+            label="Brugghús"
+            name="brewery"
+            options={breweries}
+            optionKey="name"
+            valueKey="_id"
+            ref={register}
+          ></SelectInput>
+        </div>
 
-BeerForm = connect(mapStateToProps, { fetchTypes, fetchBreweries })(BeerForm);
+        <div className={styles.buttonContainer}>
+          {/* todo: clickhandler not working */}
+          <Link to="/beers">
+            <Button buttonText="Hætta við" buttonType="cancel"></Button>
+          </Link>
 
-export default compose(
-  withRouter,
-  reduxForm({
-    form: "beerForm",
-    destroyOnUnmount: false,
-    enableReinitialize: true,
-  })
-)(BeerForm);
+          {/* <a
+            href="/beers"
+          > */}
+          <Button
+            buttonText="Skrá Bjór"
+            iconName="arrow_forward"
+            buttonType="success"
+            onClickMethod={onSubmit}
+          />
+          {/* </a> */}
+        </div>
+      </form>
+    </div>
+  );
+};

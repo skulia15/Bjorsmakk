@@ -98,7 +98,7 @@ class EventForm extends Component {
               <Button
                 onClick={() => this.nextPath("/events")}
                 buttonText="Hætta við"
-                type="cancel"
+                buttonType="cancel"
               ></Button>
             </Link>
 
@@ -111,7 +111,7 @@ class EventForm extends Component {
               <Button
                 buttonText="Skrá Viðburð"
                 iconName="arrow_forward"
-                type="success"
+                buttonType="success"
               ></Button>
             </a>
           </div>
