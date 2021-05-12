@@ -11,15 +11,21 @@ import beerStyle from "./BeerListItem.module.scss";
 
 export const BeerList = () => {
   const dispatch = useDispatch();
-  
-  const beers = useSelector((state) => state.beers);
+
+  const beersResponse = useSelector((state) => state.beers);
   const auth = useSelector((state) => state.auth);
+  const { beers, loading = true } = beersResponse;
+  console.log(loading);
 
   useEffect(() => {
     dispatch(fetchBeers());
   }, [dispatch]);
 
   const Beers = () => {
+    if (loading) {
+      console.log(loading);
+      return <h1>Hleður Bjórum...</h1>;
+    }
     if (beers && beers.length) {
       return beers
         .sort((a, b) => (a.name > b.name ? 1 : -1))
@@ -34,11 +40,7 @@ export const BeerList = () => {
             </Link>
           );
         });
-    }
-    else if(beers && beers.length === 0) {
-      return <h1>Hleður Bjórum...</h1>;
-    } 
-    else {
+    } else {
       return <div>Enginn bjór hefur verið skráður</div>;
     }
   };

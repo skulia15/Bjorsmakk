@@ -3,6 +3,7 @@ import {
   FETCH_USER,
   FETCH_USERS,
   FETCH_BEERS,
+  FETCH_BEERS_SUCCESS,
   FETCH_SINGLE_BEER,
   FETCH_BREWERIES,
   FETCH_SINGLE_BREWERY,
@@ -35,9 +36,12 @@ export const fetchUsers = () => async (dispatch) => {
 export const fetchBeers = () => async (dispatch) => {
   console.log("fetchBeers");
 
-  const res = await axios.get("/api/beers");
-
-  dispatch({ type: FETCH_BEERS, payload: res.data });
+  await axios.get("/api/beers").then((res) => {
+    dispatch({
+      type: FETCH_BEERS_SUCCESS,
+      payload: res.data,
+    })
+  });
 };
 
 export const fetchSingleBeer = (id) => async (dispatch) => {

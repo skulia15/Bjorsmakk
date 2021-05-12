@@ -5,7 +5,6 @@ const Type = mongoose.model("types");
 const Brewery = mongoose.model("breweries");
 const Country = mongoose.model("countries");
 const Rating = mongoose.model("ratings");
-// const User = mongoose.model("users");
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
