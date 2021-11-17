@@ -22,7 +22,10 @@ module.exports = (app) => {
   });
 
   app.post("/api/events", requireLogin, async (req, res) => {
+    console.log(req.body);
+    
     const { name, user, beer } = req.body;
+    console.log('EVENT', req.body);
 
     const userIds = user.map((singleUser) => {
       return singleUser.id;

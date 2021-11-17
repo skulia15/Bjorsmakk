@@ -59,6 +59,7 @@ module.exports = (app) => {
     beer.percentage = percentage;
     beer.type = type;
     beer.brewery = brewery;
+    // TODO: ADD UPDATED BY / AT ??
 
     await beer.save();
 
@@ -118,6 +119,22 @@ module.exports = (app) => {
       createdBy: req.user.id,
       createdDate: Date.now(),
     });
+    await brewery.save();
+
+    res.json(brewery);
+  });
+
+  
+  // PUT BREWERY
+  app.put("/api/breweries/:id", requireLogin, async (req, res) => {
+    const { id } = req.params;
+    const { name, country} = req.body;
+    const brewery = await Brewery.findOne({ _id: id });
+
+    brewery.name = name;
+    brewery.country = country;
+    // TODO: ADD UPDATED BY / AT ??
+
     await brewery.save();
 
     res.json(brewery);

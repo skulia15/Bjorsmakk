@@ -30,11 +30,11 @@ export const BeerDetails = ({ match, history }) => {
       message: 'Ertu viss um að þú viljir eyða þessum bjór?',
       buttons: [
         {
-          label: 'Já',
+          label: 'Já, Eyða',
           onClick: () => dispatch(deleteBeer(beer._id, history))
         },
         {
-          label: 'Nei'
+          label: 'Hætta við'
         }
       ]
     });

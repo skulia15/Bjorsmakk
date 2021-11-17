@@ -1,71 +1,60 @@
-// import validateEmails from '../../utils/validateEmails'
-import { reduxForm } from "redux-form";
-import React, { Component } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { useForm } from "react-hook-form";
+
 import Button from "../button/Button";
 
 import TextInput from "../inputs/TextInput";
 
 import styles from "../Form.module.scss";
+import { submitCountry } from "../../actions";
 
-class CountryForm extends Component {
-  render() {
-    return (
-      <div className={`${styles.formContainer} ${styles.formContainer__centered}`}>
-        <div className={styles.formHeader}>Skrá Land</div>
+export const CountryForm = ({ history }) => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
 
-        <form
-          name="countryForm"
-          className={styles.standardForm}
-          onSubmit={this.props.handleSubmit(this.props.onCountrySubmit)}
-          ref={(ref) => {
-            this.form = ref;
-          }}
-        >
-          <div className={styles.inputsContainer}>
-            <TextInput
-              placeholder=""
-              label="Land"
-              name="name"
-            ></TextInput>
-          </div>
+  const onSubmit = (data) => {
+    dispatch(submitCountry(data, history));
+  };
 
-          <div className={styles.buttonContainer}>
-            <Link to="/countries">
-              <Button
-                onClick={() => this.nextPath("/countries")}
-                buttonText="Hætta við"
-                buttonType="cancel"
-              ></Button>
-            </Link>
+  return (
+    <div className={styles.formContainer}>
+      <div className={styles.formHeader}>Skrá Land</div>
 
-            <a
-              href="/countries"
-              onClick={() => {
-                this.form.dispatchEvent(new Event("submit"));
-              }}
-            >
-              <Button
-                buttonText="Skrá Land"
-                iconName="arrow_forward"
-                buttonType="success"
-              ></Button>
-            </a>
-          </div>
-        </form>
-      </div>
-    );
-  }
+      <form
+        name="countryForm"
+        className={styles.standardForm}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className={styles.inputsContainer}>
+          <TextInput
+            placeholder=""
+            label="Land"
+            name="name"
+            ref={register}
+            required
+          ></TextInput>
+        </div>
+
+        <div className={styles.buttonContainer}>
+          <Link to="/countries">
+            <Button
+              onClick={() => this.nextPath("/countries")}
+              buttonText="Hætta við"
+              buttonType="cancel"
+            ></Button>
+          </Link>
+
+          <Button
+            buttonText="Skrá Land"
+            iconName="arrow_forward"
+            buttonType="success"
+            onClickMethod={onSubmit}
+          ></Button>
+        </div>
+      </form>
+    </div>
+  );
 }
-
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-CountryForm = connect(mapStateToProps)(CountryForm);
-
-export default reduxForm({
-  form: "countryForm",
-  destroyOnUnmount: false,
-})(CountryForm);

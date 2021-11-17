@@ -1,83 +1,104 @@
-// import validateEmails from '../../utils/validateEmails'
-import { reduxForm } from "redux-form";
-import React, { Component } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { useForm } from "react-hook-form";
+
 import Button from "../button/Button";
 import TextInput from "../inputs/TextInput";
 import SelectInput from "../inputs/SelectInput";
-import { fetchCountries } from "../../actions";
+import { fetchCountries, fetchSingleBrewery } from "../../actions";
+
+import {
+  submitBrewery,
+  editBrewery,
+} from "../../actions";
+
 
 import styles from "../Form.module.scss";
 
-class BreweryForm extends Component {
-  componentDidMount() {
-    this.props.fetchCountries();
-  }
+export const BreweryForm = ({ history, match }) => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit, setValue } = useForm();
 
-  render() {
-    return (
-      <div className={styles.formContainer}>
-        <div className={styles.formHeader}>Skrá Brugghús</div>
+  const { id } = match.params;
+  const isEditMode = !!id;
+  const countries = useSelector((state) => state.countries);
+  const brewery = useSelector((state) => state.breweries);
 
-        <form
-          name="breweryForm"
-          className={styles.standardForm}
-          onSubmit={this.props.handleSubmit(this.props.onBrewerySubmit)}
-          ref={(ref) => {
-            this.form = ref;
-          }}
-        >
-          <div className={styles.inputsContainer}>
-            <TextInput
-              placeholder=""
-              label="Brugghús"
-              name="name"
-            ></TextInput>
-            <SelectInput
-              label="Upprunaland"
-              name="country"
-              options={this.props.countries}
-              optionKey="name"
-              valueKey="_id"
-            ></SelectInput>
-          </div>
+  const onSubmit = (data) => {
+    if (isEditMode) {
+      dispatch(editBrewery(id, data, history));
+    } else {
+      dispatch(submitBrewery(data, history));
+    }
+  };
 
-          <div className={styles.buttonContainer}>
-            <Link to="/breweries">
-              <Button
-                onClick={() => this.nextPath("/breweries")}
-                buttonText="Hætta við"
-                buttonType="cancel"
-              ></Button>
-            </Link>
+  useEffect(() => {
+    dispatch(fetchCountries());
+  }, [dispatch]);
 
-            <a
-              href="/breweries"
-              onClick={() => {
-                this.form.dispatchEvent(new Event("submit"));
-              }}
-            >
-              <Button
-                buttonText="Skrá brugghús"
-                iconName="arrow_forward"
-                buttonType="success"
-              ></Button>
-            </a>
-          </div>
-        </form>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchSingleBrewery(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (isEditMode && brewery) {
+      console.log(brewery);
+      
+      setValue("name", brewery.name);
+      setValue("country", brewery.country?._id);
+    }
+  }, [brewery, isEditMode, setValue]);
+
+  return (
+    <div className={styles.formContainer}>
+      <div className={styles.formHeader}>Skrá Brugghús</div>
+
+      <form
+        name="breweryForm"
+        className={styles.standardForm}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className={styles.inputsContainer}>
+          <TextInput
+            placeholder=""
+            label="Brugghús"
+            name="name"
+            ref={register}
+            required
+          ></TextInput>
+          
+          <SelectInput
+            label="Upprunaland"
+            name="country"
+            options={countries}
+            optionKey="name"
+            valueKey="_id"
+            ref={register}
+          ></SelectInput>
+          
+        </div>
+
+        <div className={styles.buttonContainer}>
+          <Link to="/breweries">
+            <Button
+              onClick={() => this.nextPath("/breweries")}
+              buttonText="Hætta við"
+              buttonType="cancel"
+            ></Button>
+          </Link>
+          
+            <Button
+            buttonText="Skrá brugghús"
+            iconName="arrow_forward"
+            buttonType="success"
+            onClickMethod={onSubmit}
+          />
+        </div>
+      </form>
+    </div>
+  );
 }
-
-function mapStateToProps({ auth, countries }) {
-  return { auth, countries };
-}
-
-BreweryForm = connect(mapStateToProps, { fetchCountries })(BreweryForm);
-
-export default reduxForm({
-  form: "breweryForm",
-  destroyOnUnmount: false,
-})(BreweryForm);

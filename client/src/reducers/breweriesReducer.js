@@ -1,6 +1,6 @@
 import { FETCH_BREWERIES, FETCH_SINGLE_BREWERY } from "../actions/types";
 
-export default function (state = [], action) {
+export default function breweriesReducer (state = [], action) {
   switch (action.type) {
     case FETCH_BREWERIES:
       return action.payload;

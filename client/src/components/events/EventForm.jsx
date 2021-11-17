@@ -1,5 +1,5 @@
 // import validateEmails from '../../utils/validateEmails'
-import { reduxForm } from "redux-form";
+import { reduxForm, change as changeFieldValue } from "redux-form";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -9,9 +9,8 @@ import TextInput from "../inputs/TextInput";
 
 import styles from "../Form.module.scss";
 import { fetchUsers, fetchBeers } from "../../actions";
-import { Multiselect } from "multiselect-react-dropdown";
+import * as multiselectReactDropdown from "multiselect-react-dropdown";
 import formStyle from "../Form.module.scss";
-import { change as changeFieldValue } from "redux-form";
 
 class EventForm extends Component {
   constructor() {
@@ -24,7 +23,7 @@ class EventForm extends Component {
     selectedBeerValues: [],
     options: [{ name: "Hleður gögnum", id: 1 }],
   };
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchUsers();
     this.props.fetchBeers();
   }
@@ -40,6 +39,12 @@ class EventForm extends Component {
       this.props.dispatch(changeFieldValue("eventForm", "user", selected));
     }
   }
+  // TODO: Fix, bad practice - somehow move to modules 
+  dropdownStyle = {
+    multiselectContainer: {
+      color: "#242525"
+    }
+  };
 
   render() {
     return (
@@ -59,7 +64,7 @@ class EventForm extends Component {
 
             <div className={`${formStyle.form__group}`}>
               <div className={formStyle.form__label}>Þáttakendur</div>
-              <Multiselect
+              <multiselectReactDropdown.Multiselect
                 options={
                   this.props.users
                     ? this.props.users.map((user) => ({
@@ -71,15 +76,16 @@ class EventForm extends Component {
                 selectedValues={this.state.selectedUserValues} // Preselected value to persist in dropdown
                 displayValue="name" // Property name to display in the dropdown options
                 onSelect={this.handleUserSelectChange}
+                style={this.dropdownStyle}
               />
             </div>
 
             <div className={`${formStyle.form__group}`}>
               <div className={formStyle.form__label}>Bjórar</div>
 
-              <Multiselect
+              <multiselectReactDropdown.Multiselect
                 options={
-                  this.props.beers.length
+                  this.props.beers && this.props.beers.length
                     ? this.props.beers.map((beer) => ({
                         name: beer.name,
                         id: beer._id,
@@ -89,6 +95,7 @@ class EventForm extends Component {
                 selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
                 displayValue="name" // Property name to display in the dropdown options
                 onSelect={this.handleBeerSelectChange}
+                style={this.dropdownStyle}
               />
             </div>
           </div>
@@ -122,6 +129,7 @@ class EventForm extends Component {
 }
 
 function mapStateToProps({ auth, users, beers }) {
+  beers = beers.beers;
   return { auth, users, beers };
 }
 

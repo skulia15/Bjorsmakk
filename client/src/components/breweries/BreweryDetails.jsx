@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { fetchSingleBrewery } from "../../actions";
 import { fetchBeersForBrewery } from "../../actions";
 import style from "../DetailView.module.scss";
-import cardStyle from "../card/Card.module.scss";
+import { BeerCard } from "../beers/BeerCard";
+
 import beerStyle from "../beers/BeerListItem.module.scss";
 
 export const BreweryDetails = (props) => {
@@ -15,6 +17,7 @@ export const BreweryDetails = (props) => {
     dispatch(fetchBeersForBrewery(props.match.params.id));
   }, [dispatch, props.match.params.id]);
 
+  const auth = useSelector((state) => state.auth);
   const brewery = useSelector((state) => state.breweries);
   const beers = useSelector((state) => state.beers);
 
@@ -37,34 +40,41 @@ export const BreweryDetails = (props) => {
     );
   };
 
-  // TODO: reuse - copy of beerList
-  const BeerTypes = ({ beerTypes }) => {
-    if (beerTypes && beerTypes.length) {
-      return beerTypes.map((type, i) => {
-        if (i === 0) {
-          return <span key={type._id}>{type.typeName}</span>;
-        } else {
-          return <span key={type._id}> | {type.typeName}</span>;
-        }
-      });
-    } else {
-      return <span>Enginn flokkur</span>;
-    }
-  };
+  // // TODO: reuse - copy of beerList
+  // const BeerTypes = ({ beerTypes }) => {
+  //   if (beerTypes && beerTypes.length) {
+  //     return beerTypes.map((type, i) => {
+  //       if (i === 0) {
+  //         return <span key={type._id}>{type.typeName}</span>;
+  //       } else {
+  //         return <span key={type._id}> | {type.typeName}</span>;
+  //       }
+  //     });
+  //   } else {
+  //     return <span>Enginn flokkur</span>;
+  //   }
+  // };
 
   const BeersFromBrewery = () => {
-    return beers.map((beer) => {
+    if (beers.length > 0) {
+      return beers.map((beer) => {
+        beer.brewery = brewery;
+        return (
+            <Link
+              to={auth ? `/beers/${beer._id}` : "/"}
+              className={beerStyle.beerListItemContainer}
+              key={beer._id}
+            >
+              <BeerCard beer={beer} />
+            </Link>
+        );
+      });
+    }
+    else {
       return (
-        <div className={cardStyle.card} key={beer._id}>
-          <span className={cardStyle.cardHeading}>{beer.name}</span>
-          <span className={cardStyle.cardTopRight}>{beer.percentage}%</span>
-          <span className={cardStyle.cardSubHeading}>{brewery.name}</span>
-          <div className={cardStyle.cardBottomText}>
-            <BeerTypes beerTypes={beer.type} />
-          </div>
-        </div>
-      );
-    });
+        <div>Hleður brugghúsi...</div>
+      )
+    }
   };
 
   if (!brewery || brewery.length === 0) {
@@ -76,8 +86,13 @@ export const BreweryDetails = (props) => {
   } else {
     return (
       <div className={style.detailView}>
+        <button onClick={() => props.history.goBack()}>Til baka</button>
         <Brewery />
         <div className={beerStyle.beerListDetailContainer}>
+            <div className={style.controls}>
+          <Link to={auth ? `/breweries/edit/${brewery._id}` : "/"} className={style.edit}>Breyta</Link>
+          {/* <div className={style.delete} onClick={() => handleDelete()}>Eyða</div> */}
+        </div>
           <BeersFromBrewery />
         </div>
       </div>

@@ -1,3 +1,19 @@
 .landing {
+    height: 90vh;
     text-align: center;
+    position: relative;
+
+    .landingImage::before {    
+        content: "";
+        background-image: url('../../assets/ShadowTree.svg');
+        background-size: cover;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
+        background-size: 100vw 100vh;
+  }
+  
 }

@@ -18,7 +18,10 @@ export const EventList = () => {
 
   const Events = () => {
     if (events && events.length) {
-      return events.reverse().map((event) => {
+      return events
+        .sort((a, b) => (a.createdDate > b.createdDate) ? 1 : -1)
+        .map((event) => {
+          console.log(event);
         return (
           <Link to={auth ? `/events/${event._id}` : "/"} key={event._id}>
             <div className={style.singleValueListItem}>{event.name}</div>

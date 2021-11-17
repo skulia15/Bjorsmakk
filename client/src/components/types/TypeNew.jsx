@@ -1,4 +1,4 @@
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import TypeForm from './TypeForm';
@@ -28,7 +28,8 @@ function mapStateToProps({ auth }) {
     return { auth };
 }
 
-TypeNew = connect(mapStateToProps, actions)(withRouter(TypeNew));
+// TypeNew = connect(mapStateToProps, actions)(withRouter(TypeNew));
+TypeNew = connect(mapStateToProps, actions)((TypeNew));
 
 export default reduxForm({
     form: 'typeForm'

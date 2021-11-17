@@ -19,7 +19,8 @@ export const TypeList = (props) => {
       return <div>Engir bjórflokkar skráðir</div>;
     }
 
-    return types.reverse().map((beerType) => {
+    return types.sort((a, b) => (a.typeName > b.typeName) ? 1 : -1).map((beerType) => {
+      console.log(beerType)
       return (
         <div className={style.singleValueListItem} key={beerType._id}>
           <span>{beerType.typeName}</span>

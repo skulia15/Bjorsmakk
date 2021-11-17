@@ -1,19 +1,28 @@
-.formHeader {
-  margin: auto;
-  padding: 15px;
-  font-size: 25px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-  width: 80%;
-  text-align: center;
-}
+@import "./variables.scss";
 
 .formContainer {
   display: flex;
   flex-wrap: wrap;
   flex-flow: column;
-  background-color: white;
+
+  width: 50%;
+  min-width: 350px;
+  max-width: 550px;
+  
+  margin: auto;
+  margin-top: 30px;
+
+  background-color: $holiday-gray;
   border-radius: 20px;
 
+  .formHeader {
+    margin: auto;
+    padding: 15px;
+    font-size: 25px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    width: 80%;
+    text-align: center;
+  }
   .standardForm {
     padding: 30px 0;
     margin: auto;
@@ -44,7 +53,10 @@
   margin-top: 10px;
   margin-bottom: 20px;
   max-width: 290px;
+  color: $white;
   .form__label {
     margin-bottom: 10px;
   }
 }
+
+

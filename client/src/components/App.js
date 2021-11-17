@@ -15,11 +15,11 @@ import TypeNew from "./types/TypeNew";
 import { TypeList } from "./types/TypeList";
 
 import { BreweryList } from "./breweries/BreweryList";
-import BreweryNew from "./breweries/BreweryNew";
+// import BreweryNew from "./breweries/BreweryNew";
 import { BreweryDetails } from "./breweries/BreweryDetails";
 
 import { CountryList } from "./countries/CountryList";
-import CountryNew from "./countries/CountryNew";
+// import CountryNew from "./countries/CountryNew";
 
 import { UserList } from "./users/UserList";
 
@@ -28,6 +28,8 @@ import EventNew from "./events/EventNew";
 import { EventDetails } from "./events/EventDetails";
 
 import "./base.scss";
+import { BreweryForm } from "./breweries/BreweryForm";
+import { CountryForm } from "./countries/CountryForm";
 
 class App extends Component {
   componentDidMount() {
@@ -35,9 +37,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="container">
         <BrowserRouter>
-          <div>
             <Header />
             <Route exact path="/" component={Landing} />
 
@@ -53,12 +53,13 @@ class App extends Component {
 
             <Switch>
               <Route exact path="/breweries" component={BreweryList} />
-              <Route exact path="/breweries/new" component={BreweryNew} />
+              <Route exact path="/breweries/new" component={BreweryForm} />
+              <Route exact path="/breweries/edit/:id" component={BreweryForm} />
               <Route path="/breweries/:id" component={BreweryDetails} />
             </Switch>
 
             <Route exact path="/countries" component={CountryList} />
-            <Route path="/countries/new" component={CountryNew} />
+            <Route path="/countries/new" component={CountryForm} />
 
             <Route exact path="/users" component={UserList} />
 
@@ -73,9 +74,7 @@ class App extends Component {
               path="/events/:eventId/beer/:beerId"
               component={BeerRate}
             />
-          </div>
         </BrowserRouter>
-      </div>
     );
   }
 }

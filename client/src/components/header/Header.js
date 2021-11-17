@@ -78,6 +78,7 @@ export const Header = () => {
     <nav className={styles.navigation}>
       <div className={styles.linkContainer}>
         <Link to={auth ? "/" : "/"} className={styles.navigationLink}>
+          <span className={styles.icon}></span>
           Jólabjórsmakk
         </Link>
         <Links />

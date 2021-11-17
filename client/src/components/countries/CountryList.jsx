@@ -18,7 +18,7 @@ export const CountryList = (props) => {
     if (!countries) {
       return <div>Engin lönd skráð</div>;
     }
-    return countries.reverse().map((country) => {
+    return countries.sort((a, b) => (a.name > b.name) ? 1 : -1).map((country) => {
       return (
         <div className={style.singleValueListItem} key={country._id}>
           <span>{country.name}</span>

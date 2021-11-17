@@ -1,7 +1,7 @@
 // import validateEmails from '../../utils/validateEmails'
 import { reduxForm } from "redux-form";
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import styles from "../Form.module.scss";
@@ -66,7 +66,7 @@ function mapStateToProps({ auth }) {
 TypeForm = connect(mapStateToProps)(TypeForm);
 
 export default compose(
-  withRouter,
+  // withRouter,
   reduxForm({
     form: "typeForm",
     destroyOnUnmount: false,

@@ -2,8 +2,9 @@
 
 .detailView {
   margin: auto;
+  margin-top: 30px;
   width: 50%;
-  background-color: $white;
+  background-color: $holiday-gray;
   border-radius: 15px;
   padding: 20px;
   position: relative;
@@ -21,7 +22,7 @@
 
     a{
         margin-right: 10px;
-        color: $default-black
+        color: $white;
     }
     :last-child {
         margin-right: 10px;

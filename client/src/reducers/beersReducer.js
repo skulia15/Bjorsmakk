@@ -5,7 +5,7 @@ import {
   FETCH_BEERS_FOR_BREWERY,
 } from "../actions/types";
 
-export default function (state = { beersResponse: [] }, action) {
+export default function beersReducer(state = { beersResponse: [] }, action) {
   switch (action.type) {
     case FETCH_BEERS:
       return { ...state, loading: true };

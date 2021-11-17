@@ -23,7 +23,6 @@ import styles from "../Form.module.scss";
 
 export const BeerForm = ({ history, match }) => {
   const dispatch = useDispatch();
-
   const { register, handleSubmit, setValue } = useForm();
 
   const { id } = match.params;
@@ -64,16 +63,23 @@ export const BeerForm = ({ history, match }) => {
       setValue("type", beer.type);
       setSelectedTypes(beer.type);
     }
-  }, [beer]);
+  }, [beer, isEditMode, setValue]);
 
   const handleTypesChange = (values) => {
     setValue("type", values);
     setSelectedTypes(values);
   };
+  
+  // TODO: Fix, bad practice - somehow move to modules 
+  const dropdownStyle = {
+    multiselectContainer: {
+      color: "#242525"
+    }
+  };
 
   return (
     <div
-      className={`${styles.formContainer} ${styles.formContainer__centered}`}
+      className={styles.formContainer}
     >
       <div className={styles.formHeader}>
         Skrá Bjór
@@ -108,6 +114,7 @@ export const BeerForm = ({ history, match }) => {
               selectedValues={selectedTypes} // Preselected value to persist in dropdown
               displayValue="typeName" // Property name to display in the dropdown options
               onSelect={handleTypesChange}
+              style={dropdownStyle}
             />
           </div>
           <SelectInput
@@ -121,21 +128,16 @@ export const BeerForm = ({ history, match }) => {
         </div>
 
         <div className={styles.buttonContainer}>
-          {/* todo: clickhandler not working */}
-          <Link to="/beers">
+          <Link to={"/beers/"+id}>
             <Button buttonText="Hætta við" buttonType="cancel"></Button>
           </Link>
 
-          {/* <a
-            href="/beers"
-          > */}
           <Button
             buttonText="Skrá Bjór"
             iconName="arrow_forward"
             buttonType="success"
             onClickMethod={onSubmit}
           />
-          {/* </a> */}
         </div>
       </form>
     </div>

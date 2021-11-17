@@ -1,7 +1,27 @@
+@import '../variables.scss';
+
 .userItem {
-    padding: 20px;
+    padding: 10px 20px;
     border: 1px solid gray;
-    .userItemName {
-        font-weight: bold;
+    margin-bottom: 5px;
+    color: $white;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 5px;
+    background-color: $holiday-gray;
+
+    .profilePicture {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+    }
+
+    .nameAndEmailContainer {
+        padding-left: 20px;
+        .userItemName {
+            font-weight: bold;
+        }
     }
 }

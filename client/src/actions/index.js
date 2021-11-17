@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   FETCH_USER,
   FETCH_USERS,
-  FETCH_BEERS,
+  // FETCH_BEERS,
   FETCH_BEERS_SUCCESS,
   FETCH_SINGLE_BEER,
   FETCH_BREWERIES,
@@ -120,6 +120,13 @@ export const submitBrewery = (values, history) => async (dispatch) => {
 
   history.push("/breweries");
   dispatch({ type: FETCH_USER, payload: res.data });
+};
+
+export const editBrewery = (id, values, history) => async () => {
+  console.log("editBrewery");
+
+  await axios.put(`/api/breweries/${id}`, values);
+  history.push(`/breweries/${id}`);
 };
 
 /* Countries */
